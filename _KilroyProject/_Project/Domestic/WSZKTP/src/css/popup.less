@@ -1,0 +1,68 @@
+@import 'base';
+
+#popup_message,
+#popup_delete_card_group {
+  .popup_box {
+    width: 96%;
+    max-width: 600*@px;
+    .borderBox();
+    .border(24, 24*@px, 'box_border.png');
+    .bg('bg_box.jpg');
+    background-repeat: repeat-y;
+    
+    .close {
+      display: none;
+    }
+    
+    .content_box {
+      overflow: initial;
+      padding: 26*@px 36*@px 0;
+      text-align: center;
+      
+      .popup_title {
+        .font(center, 26*@px, @color_3, 22*@px, true);
+        
+        span {
+          @style: fade(@color_3, 100), fade(@color_4, 100);
+          .fontClip(90deg, @style);
+        }
+      }
+      
+      .popup_content {
+        position: relative;
+        margin: 15*@px 0 20*@px;
+        .font(center, 35*@px, @color_6, 18*@px);
+        
+        ul {
+          width: calc(100% - 20 * @px);
+          margin-left: 20*@px;
+          text-align: left;
+          
+          li {
+            list-style-type: decimal;
+            list-style-position: outside;
+          }
+        }
+      }
+      
+      .btn_1,
+      .btn_3 {
+        display: inline-block;
+        margin-left: 10*@px;
+        margin-right: 10*@px;
+        vertical-align: top;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  #popup_message,
+  #popup_delete_card_group {
+    .popup_box {
+      .content_box {
+        padding: 26*@px 0 0;
+      }
+    }
+  }
+}

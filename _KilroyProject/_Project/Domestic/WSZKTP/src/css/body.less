@@ -1,0 +1,38 @@
+@import 'base';
+
+.body {
+  overflow: hidden;
+  position: relative;
+  min-width: @min_width;
+  max-width: @max_width;
+  margin: 0 auto;
+  //.noSelectText();
+  .bg('bg.jpg', 1920*@px, 1600*@px);
+  background-position: center -165*@px;
+  background-repeat: repeat-y;
+  
+  &:before {
+    content: '';
+    display: block;
+    .position(absolute, 0, 0, auto, 0);
+    height: 660*@px;
+    .bg('bg_header.jpg', 1920*@px, 660*@px);
+  }
+  
+  > .container {
+    position: relative;
+    padding-top: 160*@px;
+    padding-bottom: 200*@px;
+    .borderBox();
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .body {
+    max-width: 750*@px;
+    
+    .container {
+      padding-top: 80*@px;
+    }
+  }
+}

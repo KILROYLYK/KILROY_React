@@ -1,0 +1,242 @@
+@import 'base';
+
+.footer {
+  position: relative;
+  z-index: 0;
+  padding-bottom: 50*@px;
+  margin: 0 auto;
+  
+  &:before {
+    @h: 9*@px;
+    content: '';
+    display: block;
+    .position(absolute, 0, 0, auto, 0);
+    z-index: 1;
+    height: @h;
+    .bg('footer_line.png', 1920*@px, @h);
+    background-position: center;
+  }
+  
+  .footer_register {
+    @h: 794*@px;
+    overflow: hidden;
+    position: relative;
+    z-index: 0;
+    height: @h;
+    .bg('footer_bg.jpg', 1920*@px, @h);
+    background-position: center;
+    
+    p {
+      margin-top: 50*@px;
+      text-indent: 46*@px;
+      .font(center, 50*@px, @color_1, 46*@px, true);
+    }
+    
+    .logo {
+      margin: 150*@px auto 0;
+      .bg('logo.png', 550*@px, 272*@px, true);
+    }
+    
+    .btn_register {
+      overflow: hidden;
+      position: relative;
+      margin: 50*@px auto 0;
+      .bg('footer_btn.png', 350*@px, 70*@px, true);
+      .font(center, 70*@px, @color_1, 34*@px, true);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, .58);
+      letter-spacing: 5px;
+      
+      i {
+        @style: fade(@color_1, 0), fade(@color_1, 40), fade(@color_1, 0);
+        display: block;
+        .position(absolute, -100*@px, auto, auto, -500*@px);
+        z-index: 1;
+        width: 200*@px;
+        height: 300*@px;
+        .gradientLinear(90deg, @style);
+        .transform(rotate(30deg));
+        
+        @name: btnMove;
+        .am_fun() {
+          form {
+            .transform(translateX(0*@px) rotate(30deg));
+          }
+          80% {
+            .transform(translateX(1000*@px) rotate(30deg));
+          }
+          100% {
+            .transform(translateX(1000*@px) rotate(30deg));
+          }
+        }
+        .creatAnimation(@name, .am_fun());
+        .animation(@name 4s linear infinite forwards);
+      }
+    }
+  }
+  
+  .footer_attention {
+    position: relative;
+    z-index: 2;
+    
+    p {
+      .font(center, 140*@px, @color_3, 30*@px);
+      
+      span {
+        @style: fade(@color_3, 100), fade(@color_4, 100);
+        .fontClip(90deg, @style);
+      }
+    }
+    
+    .community {
+      text-align: center;
+      font-size: 0*@px;
+      
+      > a {
+        display: inline-block;
+        position: relative;
+        margin: 0 20*@px;
+        .bgLazy(100*@px, 102*@px, true);
+        
+        &.wechat {
+          .bg('community_wechat.png');
+          
+          &:hover {
+            .qr_box {
+              display: block;
+              
+              @name: popup_qr_box;
+              .am_fun() {
+                form {
+                  opacity: 0;
+                  .transform(translate(-50%, 0));
+                }
+                100% {
+                  opacity: 1;
+                  .transform(translate(-50%, -15*@px));
+                }
+              }
+              .creatAnimation(@name, .am_fun());
+              .animation(@name 0.1s linear forwards);
+            }
+          }
+          
+          .qr_box {
+            display: none;
+            opacity: 0;
+            .position(absolute, -160*@px, 0, 0, 50%);
+            .bg('qr_box.png', 164*@px, 169*@px, true);
+            .transform(translate(-50%, 0));
+            
+            img {
+              .position(absolute, -15*@px);
+              width: 120*@px;
+              height: 120*@px;
+              margin: auto;
+            }
+          }
+        }
+        
+        &.weibo {
+          .bg('community_weibo.png');
+        }
+      }
+    }
+    
+    .contact {
+      margin-top: 40*@px;
+      text-align: center;
+      font-size: 0*@px;
+      
+      a {
+        display: inline-block;
+        margin: 0 20*@px;
+        .font(center, 30*@px, @color_6, 14*@px, true);
+        
+        &:nth-child(1) {
+          i {
+            background-position: 1*@px 0 !important;
+          }
+        }
+        
+        &:nth-child(2) {
+          i {
+            background-position: -32*@px 0 !important;
+          }
+        }
+        
+        &:nth-child(3) {
+          i {
+            background-position: -65*@px 0 !important;
+          }
+        }
+        
+        i {
+          display: inline-block;
+          width: 22*@px;
+          height: 22*@px;
+          margin-right: 7*@px;
+          .bg('footer_icon.png', 86*@px, 22*@px);
+          vertical-align: top;
+          .transform(translateY(5*@px))
+        }
+      }
+    }
+    
+    .company {
+      margin-top: 40*@px;
+      text-align: center;
+      font-size: 0*@px;
+      
+      a {
+        display: inline-block;
+        margin: 0 20*@px;
+        
+        &.cdpr {
+          .bg('logo_cdpr.png', 195*@px, 91*@px, true);
+        }
+        
+        &.gaea {
+          .bg('logo_gaea.png', 165*@px, 91*@px, true);
+        }
+      }
+    }
+  }
+  
+  .footer_license {
+    position: relative;
+    z-index: 2;
+    padding: 0 15*@px;
+    margin-top: 30*@px;
+    .font(center, 26*@px, #737273, 15*@px);
+    
+    span {
+      padding: 0 5*@px;
+    }
+    
+    a {
+      display: inline-block;
+      padding: 0 5*@px;
+      color: #737273;
+      
+      &:hover {
+        color: @color_1;
+      }
+      
+      img {
+        display: inline-block;
+        width: 22*@px;
+        height: 22*@px;
+        margin-left: 3*@px;
+        vertical-align: top;
+        .transform(translateY(3*@px));
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .footer {
+    padding-bottom: 100*@px;
+    max-width: 750*@px;
+  }
+}

@@ -1,0 +1,53 @@
+@import 'base';
+
+@time: 0.3s;
+
+#cardLibraryEditor {
+  overflow: hidden;
+  
+  .w-e-toolbar {
+    border: 1*@px solid @color_4 !important;
+    background: none !important;
+    
+    .w-e-menu {
+      > i {
+        color: @color_3 !important;
+      }
+      
+      .w-e-droplist {
+        background: fade(@color_2, 85) !important;
+        border: 1*@px solid @color_4 !important;
+        
+        .w-e-dp-title {
+          color: @color_3;
+          font-size: 18*@px;
+          border-bottom: 1*@px solid @color_4 !important;
+        }
+        
+        .w-e-block {
+          text-align: center;
+        }
+        
+        .w-e-list {
+          .w-e-item {
+            color: @color_1;
+            
+            &:hover {
+              color: @color_2;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  .w-e-text-container {
+    height: 1000*@px !important;
+    border: 1*@px solid @color_4 !important;
+    
+    .w-e-text {
+      overflow-x: hidden !important;
+      overflow-y: auto !important;
+    }
+  }
+}

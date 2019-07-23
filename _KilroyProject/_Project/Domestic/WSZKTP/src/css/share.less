@@ -1,0 +1,84 @@
+@import 'base';
+
+.card_share {
+  position: relative;
+  padding: 30*@px 0 5*@px;
+  text-align: center;
+  
+  .social-share {
+    font-size: 0;
+    
+    .social-share-icon {
+      @style: fade(@color_3, 100), fade(@color_4, 100);
+      overflow: initial;
+      opacity: 1;
+      width: 40*@px;
+      height: 40*@px;
+      border: none;
+      vertical-align: top;
+      .font(center, 62*@px, @color_3, 26*@px);
+      
+      &:hover {
+        color: @color_3;
+        background: transparent;
+      }
+      
+      .wechat-qrcode {
+        .position(absolute, -200*@px, auto, auto, 50%);
+        .bg('share_wechat_bg.png', 159*@px, 198*@px, true);
+        border: none;
+        .shadow(0 0 0 transparent);
+        .transform(translateX(-50%));
+        
+        &:after {
+          display: none;
+        }
+        
+        h4 {
+          height: 40*@px;
+          background: none;
+          .font(center, 40*@px, @color_3, 16*@px);
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  @color: rgba(65, 56, 20, 0.8);
+  
+  .card_share {
+    @style: transparent 0%, @color 30%, @color 70%, transparent 100%;
+    float: left;
+    width: 100%;
+    padding: 15*@px 0;
+    margin: 0 0 50*@px;
+    
+    &:before,
+    &:after {
+      @style: transparent 0%, @color 30%, @color 70%, transparent 100%;
+      content: '';
+      display: block;
+      width: 100%;
+      height: 2*@px;
+      .borderGradientLinear(1px, 0deg, @style, @gradient_config_1);
+      border-left: none;
+      border-right: none;
+    }
+    
+    &:before {
+      .position(top);
+    }
+    
+    &:after {
+      .position(bottom);
+    }
+    
+    .social-share {
+      .social-share-icon {
+        line-height: 38*@px;
+        margin: 0 20*@px;
+      }
+    }
+  }
+}
