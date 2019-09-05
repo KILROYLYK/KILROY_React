@@ -38,7 +38,7 @@ export default class shareComponent extends React.Component {
                 {
                     name: 'card_share',
                     config: {
-                        url: w.location.href,
+                        url: W.location.href,
                         source: '',
                         title: '欢迎您加入《巫师之昆特牌》！您将与世界各地玩家通过昆特牌一决高下！了解更多请点击：http://www.playgwent.cn',
                         origin: '',

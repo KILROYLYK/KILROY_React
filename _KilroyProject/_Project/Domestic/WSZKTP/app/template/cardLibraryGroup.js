@@ -5,7 +5,7 @@ import { $, Base, GaeaAjax } from '../../../../_Base/js/window';
 import { domain, interfaceRoute } from '../constant/interface';
 import { href } from '../constant/href';
 import { camp } from '../constant/camp';
-import { winWidth, winHeight, winScroll, scrollTop, isPC, isMobile, isLogin, getImage } from '../controller/window';
+import { winWidth, winHeight, scrollTop, isPC, isMobile, isLogin, getImage } from '../controller/window';
 import { createTippyMessage, TippyMessage, TippyCard } from '../controller/tippy';
 import { route } from '../controller/route';
 

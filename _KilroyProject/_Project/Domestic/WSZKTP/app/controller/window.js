@@ -1,7 +1,7 @@
 /**
  * Public
  */
-import { w, $, GaeaAjax, Base } from '../../../../_Base/js/window';
+import { W, $, GaeaAjax, Base } from '../../../../_Base/js/window';
 import { domain, interfaceRoute } from '../constant/interface';
 import { userCookie } from '../constant/cookie';
 import { userInitialState } from '../state/user';
@@ -11,7 +11,7 @@ import { userInitialState } from '../state/user';
  * @return {number} 返回屏幕宽度
  */
 export const winWidth = () => {
-    return $(w).width();
+    return $(W).width();
 };
 
 /**
@@ -19,7 +19,7 @@ export const winWidth = () => {
  * @return {number} 返回屏幕宽度
  */
 export const winHeight = () => {
-    return $(w).height();
+    return $(W).height();
 };
 
 /**
@@ -27,7 +27,7 @@ export const winHeight = () => {
  * @return {number} 返回滚动位置
  */
 export const winScroll = () => {
-    return $(w).scrollTop();
+    return $(W).scrollTop();
 };
 
 /**
@@ -100,7 +100,7 @@ export const delUserInfo = () => {
  * @return {string} 返回平台
  */
 export const platform = () => {
-    const media = w.matchMedia('(min-width:1200px)');
+    const media = W.matchMedia('(min-width:1200px)');
     
     if (media.matches) {
         return 'pc';

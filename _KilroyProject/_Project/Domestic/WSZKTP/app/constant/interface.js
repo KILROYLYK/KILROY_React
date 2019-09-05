@@ -7,7 +7,8 @@ const domainRoute = {
     test: 'http://gwent-test.playgwent.cn/api/decks',
     formal: 'https://playgwent.cn/api/decks'
 };
-export const domain = domainRoute.formal;
+export const domain = domainRoute.test;
+// export const domain = domainRoute.formal;
 
 /**
  * 接口

@@ -1,7 +1,7 @@
 /**
  * Public
  */
-import { $, w } from '../../../../../_Base/js/window';
+import { $, W } from '../../../../../_Base/js/window';
 import { href } from '../../constant/href';
 import { inspectionUserInfo } from '../../controller/window';
 
@@ -90,7 +90,7 @@ export default class loginComponent extends React.Component {
             });
         });
         
-        w.countDown = () => {
+        W.countDown = () => {
             setTimeout(() => {
                 parent.location.reload();
             }, 1500);
