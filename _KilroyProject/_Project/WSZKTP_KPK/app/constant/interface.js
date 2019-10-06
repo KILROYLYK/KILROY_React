@@ -4,11 +4,11 @@
 const domainRoute = {
     common: '/api/decks',
     local: 'http://119.28.184.34',
-    test: 'http://gwent-test.playgwent.cn/api/decks',
-    formal: 'https://playgwent.cn/api/decks'
+    test: 'http://gwent-test.playgwent.cn',
+    formal: 'https://playgwent.cn'
 };
-export const domain = domainRoute.test;
-// export const domain = domainRoute.formal;
+export const domain = domainRoute.test + domainRoute.common;
+// export const domain = domainRoute.formal + domainRoute.common;
 
 /**
  * 接口
