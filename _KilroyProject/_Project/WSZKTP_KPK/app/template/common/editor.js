@@ -1,7 +1,7 @@
 /**
  * Public
  */
-import { Editor } from '../../../../../_Base/js/window';
+import { Editor } from '../../../../_Base/js/window';
 
 /**
  * Style

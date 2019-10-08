@@ -1,13 +1,12 @@
 /**
  * Public
  */
-import { $, Base, GaeaAjax } from '../../../../_Base/js/window';
+import { $, Base, GaeaAjax } from '../../../_Base/js/window';
+import { winWidth, winHeight, scrollTop, isPC, isMobile, isLogin, getImage } from '../controller/window';
+import { route } from '../controller/route';
 import { domain, interfaceRoute } from '../constant/interface';
 import { href } from '../constant/href';
 import { camp } from '../constant/camp';
-import { winWidth, winHeight, scrollTop, isPC, isMobile, isLogin, getImage } from '../controller/window';
-import { createTippyMessage, TippyMessage, TippyCard } from '../controller/tippy';
-import { route } from '../controller/route';
 
 /**
  * Style
@@ -21,6 +20,7 @@ import Loading from './common/loading';
 import Popup from './common/popup';
 import Share from './common/share';
 import Editor from './common/editor';
+import { createTippyMessage, TippyMessage, TippyCard } from './common/tippy';
 
 /**
  * React
@@ -706,16 +706,16 @@ export default class cardLibraryGroupComponent extends React.Component {
         const _this = this,
             {history} = _this.props;
         
-        GaeaAjax.commonAjax(
-            'get',
-            domain + interfaceRoute.deldeck,
-            {
-                deck_id: _this.state.id
-            },
-            (result) => {
-                history.push(route.decks.path);
-            }
-        );
+        // GaeaAjax.commonAjax(
+        //     'get',
+        //     domain + interfaceRoute.delDeck,
+        //     {
+        //         deck_id: _this.state.id
+        //     },
+        //     (result) => {
+        //         history.push(route.decks.path);
+        //     }
+        // );
     }
     
     /******数据事件******/
@@ -727,54 +727,54 @@ export default class cardLibraryGroupComponent extends React.Component {
     getCardData() {
         const _this = this;
         
-        GaeaAjax.commonAjax(
-            'get',
-            domain + interfaceRoute.getdeck,
-            {
-                deck_id: _this.state.id
-            },
-            (result) => {
-                if (result.self) {
-                    _this.setState({
-                        permission: result.self
-                    });
-                }
-                
-                if (result.deck) {
-                    _this.setState({
-                        camp: result.deck.faction,
-                        likeTotal: result.deck.like,
-                        info_title: result.deck.title,
-                        info_cost: result.deck.cost,
-                        info_number: result.deck.cardsNum,
-                        info_provision: result.deck.provisions,
-                        info_valid: result.deck.oldVersion === false,
-                        info_user: result.deck.author,
-                        info_create_time: result.deck.createAt,
-                        info_introduction: result.deck.article
-                    }, () => {
-                        if (result.self && _this.state.autoEdit) {
-                            _this.setState({
-                                edit: true,
-                                autoEdit: false
-                            });
-                        }
-                    });
-                }
-                
-                if (result.cards) {
-                    _this.setState({
-                        cardList: _this.getCardList(result.cards)
-                    });
-                }
-                
-                if (result.like) {
-                    _this.setState({
-                        like: result.like
-                    });
-                }
-            }
-        );
+        // GaeaAjax.commonAjax(
+        //     'get',
+        //     domain + interfaceRoute.getDeck,
+        //     {
+        //         deck_id: _this.state.id
+        //     },
+        //     (result) => {
+        //         if (result.self) {
+        //             _this.setState({
+        //                 permission: result.self
+        //             });
+        //         }
+        //
+        //         if (result.deck) {
+        //             _this.setState({
+        //                 camp: result.deck.faction,
+        //                 likeTotal: result.deck.like,
+        //                 info_title: result.deck.title,
+        //                 info_cost: result.deck.cost,
+        //                 info_number: result.deck.cardsNum,
+        //                 info_provision: result.deck.provisions,
+        //                 info_valid: result.deck.oldVersion === false,
+        //                 info_user: result.deck.author,
+        //                 info_create_time: result.deck.createAt,
+        //                 info_introduction: result.deck.article
+        //             }, () => {
+        //                 if (result.self && _this.state.autoEdit) {
+        //                     _this.setState({
+        //                         edit: true,
+        //                         autoEdit: false
+        //                     });
+        //                 }
+        //             });
+        //         }
+        //
+        //         if (result.cards) {
+        //             _this.setState({
+        //                 cardList: _this.getCardList(result.cards)
+        //             });
+        //         }
+        //
+        //         if (result.like) {
+        //             _this.setState({
+        //                 like: result.like
+        //             });
+        //         }
+        //     }
+        // );
     }
     
     /**
@@ -790,23 +790,23 @@ export default class cardLibraryGroupComponent extends React.Component {
             return;
         }
         
-        GaeaAjax.commonAjax(
-            'get',
-            domain + interfaceRoute.like,
-            {
-                deck_id: _this.state.id,
-                like: type
-            },
-            (result) => {
-                _this.setState({
-                    like: result.like
-                });
-                
-                _this.setState({
-                    likeTotal: _this.state.likeTotal + result.offset
-                });
-            }
-        );
+        // GaeaAjax.commonAjax(
+        //     'get',
+        //     domain + interfaceRoute.like,
+        //     {
+        //         deck_id: _this.state.id,
+        //         like: type
+        //     },
+        //     (result) => {
+        //         _this.setState({
+        //             like: result.like
+        //         });
+        //
+        //         _this.setState({
+        //             likeTotal: _this.state.likeTotal + result.offset
+        //         });
+        //     }
+        // );
     }
     
     /******其他事件******/
@@ -985,37 +985,37 @@ export default class cardLibraryGroupComponent extends React.Component {
                 info_introduction: '<p>保存中...</p>'
             });
             
-            GaeaAjax.commonAjax(
-                'post',
-                domain + interfaceRoute.moddeck,
-                JSON.stringify({
-                    deck_id: _this.state.id,
-                    title: _this.state.info_title,
-                    article: newContent
-                }),
-                (result) => {
-                    _this.getCardData();
-                },
-                (e) => {
-                    const message = e.getResponseHeader('grpc-message');
-                    
-                    _this.setState({
-                        info_introduction: oldContent
-                    });
-                    
-                    if (message === 'title or article is too long') {
-                        _this.child.popup.tool.message({
-                            title: '保存失败',
-                            content: '标题或内容过长'
-                        });
-                    } else {
-                        _this.child.popup.tool.message({
-                            title: '保存失败',
-                            content: '系统错误，请稍后重试！'
-                        });
-                    }
-                }
-            );
+            // GaeaAjax.commonAjax(
+            //     'post',
+            //     domain + interfaceRoute.modDeck,
+            //     JSON.stringify({
+            //         deck_id: _this.state.id,
+            //         title: _this.state.info_title,
+            //         article: newContent
+            //     }),
+            //     (result) => {
+            //         _this.getCardData();
+            //     },
+            //     (e) => {
+            //         const message = e.getResponseHeader('grpc-message');
+            //
+            //         _this.setState({
+            //             info_introduction: oldContent
+            //         });
+            //
+            //         if (message === 'title or article is too long') {
+            //             _this.child.popup.tool.message({
+            //                 title: '保存失败',
+            //                 content: '标题或内容过长'
+            //             });
+            //         } else {
+            //             _this.child.popup.tool.message({
+            //                 title: '保存失败',
+            //                 content: '系统错误，请稍后重试！'
+            //             });
+            //         }
+            //     }
+            // );
         }
     }
     

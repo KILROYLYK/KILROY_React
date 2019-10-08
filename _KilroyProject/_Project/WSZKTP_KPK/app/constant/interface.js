@@ -1,26 +1,39 @@
 /**
- * 域名
+ * 服务器类型
  */
-const domainRoute = {
-    common: '/api/decks',
-    local: 'http://119.28.184.34',
-    test: 'http://gwent-test.playgwent.cn',
-    formal: 'https://playgwent.cn'
-};
-export const domain = domainRoute.test + domainRoute.common;
-// export const domain = domainRoute.formal + domainRoute.common;
+const server = 'test';
 
 /**
- * 接口
+ * 接口域名
  */
+const domainCommon = {
+    test: 'http://acts-test.gaeamobile.net',
+    formal: 'https://acts.gaeamobile.net',
+    officialTest: 'http://gwent-test.playgwent.cn',
+    officialFormal: 'https://www.playgwent.cn'
+};
+export const domain = domainCommon[server];
+
+/**
+ * 官网域名
+ */
+const officialCommon = {
+    test: 'http://gwent-test.playgwent.cn',
+    formal: 'https://www.playgwent.cn'
+};
+export const official = officialCommon[server];
+
+/**
+ * 接口地址
+ */
+const interfaceCommon = '/gwent-decks';
 export const interfaceRoute = {
-    echo: '/echo', //打印消息
-    image: '/images', //获取图片
-    userinfo: '/userinfo', //获取登录状态及用户信息
-    like: '/like', //获取登录状态及用户信息
-    leaders: '/leaders', //获取阵营及领袖
-    getdecks: '/getdecks', //获取牌组列表
-    getdeck: '/getdeck', //获取牌组
-    moddeck: '/moddeck', //修改牌组
-    deldeck: '/deldeck' //删除牌组
+    userInfo: '/sso/check-login', //获取登录状态及用户信息
+    image: interfaceCommon + '/gwent-decks-img', //获取图片
+    like: interfaceCommon + '/like', //点赞
+    leaders: interfaceCommon + '/leaders', //获取阵营及领袖
+    getDecks: interfaceCommon + '/getdecks', //获取牌组列表
+    getDeck: interfaceCommon + '/getdeck', //获取牌组
+    modDeck: interfaceCommon + '/moddeck', //修改牌组
+    delDeck: interfaceCommon + '/deldeck' //删除牌组
 };

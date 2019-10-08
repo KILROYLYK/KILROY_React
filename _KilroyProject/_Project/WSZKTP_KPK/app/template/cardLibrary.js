@@ -1,14 +1,13 @@
 /**
  * Public
  */
-import { Base, GaeaAjax } from '../../../../_Base/js/window';
+import { Base, GaeaAjax } from '../../../_Base/js/window';
+import { scrollTop, isPC, isMobile, getImage } from '../controller/window';
+import { route } from '../controller/route';
 import { domain, interfaceRoute } from '../constant/interface';
 import { campCookie } from '../constant/cookie';
 import { href } from '../constant/href';
 import { camp } from '../constant/camp';
-import { scrollTop, isPC, isMobile, getImage } from '../controller/window';
-import { createTippyMessage, TippyMessage } from '../controller/tippy';
-import { route } from '../controller/route';
 
 /**
  * Style
@@ -20,6 +19,7 @@ import '../../src/css/cardLibrary.less';
  */
 import Loading from './common/loading';
 import Popup from './common/popup';
+import { createTippyMessage, TippyMessage } from './common/tippy';
 
 /**
  * React
@@ -738,18 +738,18 @@ export default class cardLibraryComponent extends React.Component {
         const _this = this,
             condition = _this.getCondition();
         
-        GaeaAjax.commonAjax(
-            'get',
-            domain + interfaceRoute.leaders,
-            {},
-            (result) => {
-                if (result.leaders) {
-                    _this.setState({
-                        campList: _this.getCamp(result.leaders)
-                    });
-                }
-            }
-        );
+        // GaeaAjax.commonAjax(
+        //     'get',
+        //     domain + interfaceRoute.leaders,
+        //     {},
+        //     (result) => {
+        //         if (result.leaders) {
+        //             _this.setState({
+        //                 campList: _this.getCamp(result.leaders)
+        //             });
+        //         }
+        //     }
+        // );
     }
     
     /**
@@ -775,45 +775,45 @@ export default class cardLibraryComponent extends React.Component {
             btnNext: false
         });
         
-        GaeaAjax.commonAjax(
-            'get',
-            domain + interfaceRoute.getdecks,
-            {
-                limit: _this.state.limit,
-                after_id: _this.state.limit * (_this.state.page - 1),
-                sort_by: condition.sort,
-                asc: condition.asc,
-                after: time,
-                filter: _this.state.search,
-                faction: _this.state.camp === 'Neutral' ? '' : _this.state.camp,
-                leader: _this.state.hero
-            },
-            (result) => {
-                if (result.decks) {
-                    if (result.decks.length > 0) {
-                        _this.setState({
-                            cardGroupList: result.decks
-                        });
-                    } else {
-                        _this.setState({
-                            noResult: true
-                        });
-                    }
-                }
-                if (result.page) {
-                    if (result.page.prev !== '') {
-                        _this.setState({
-                            btnPrev: true
-                        });
-                    }
-                    if (result.page.next !== '') {
-                        _this.setState({
-                            btnNext: true
-                        });
-                    }
-                }
-            }
-        );
+        // GaeaAjax.commonAjax(
+        //     'get',
+        //     domain + interfaceRoute.getDecks,
+        //     {
+        //         limit: _this.state.limit,
+        //         after_id: _this.state.limit * (_this.state.page - 1),
+        //         sort_by: condition.sort,
+        //         asc: condition.asc,
+        //         after: time,
+        //         filter: _this.state.search,
+        //         faction: _this.state.camp === 'Neutral' ? '' : _this.state.camp,
+        //         leader: _this.state.hero
+        //     },
+        //     (result) => {
+        //         if (result.decks) {
+        //             if (result.decks.length > 0) {
+        //                 _this.setState({
+        //                     cardGroupList: result.decks
+        //                 });
+        //             } else {
+        //                 _this.setState({
+        //                     noResult: true
+        //                 });
+        //             }
+        //         }
+        //         if (result.page) {
+        //             if (result.page.prev !== '') {
+        //                 _this.setState({
+        //                     btnPrev: true
+        //                 });
+        //             }
+        //             if (result.page.next !== '') {
+        //                 _this.setState({
+        //                     btnNext: true
+        //                 });
+        //             }
+        //         }
+        //     }
+        // );
     }
     
     /******其他事件******/

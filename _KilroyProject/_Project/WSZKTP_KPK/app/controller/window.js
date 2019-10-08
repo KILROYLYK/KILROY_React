@@ -1,7 +1,7 @@
 /**
  * Public
  */
-import { W, $, GaeaAjax, Base } from '../../../../_Base/js/window';
+import { W, $, GaeaAjax, Base } from '../../../_Base/js/window';
 import { domain, interfaceRoute } from '../constant/interface';
 import { userCookie } from '../constant/cookie';
 import { userInitialState } from '../state/user';
@@ -45,18 +45,12 @@ export const scrollTop = (top) => {
  * @return {void}
  */
 export const inspectionUserInfo = (store) => {
-    GaeaAjax.commonAjax(
-        'get',
-        domain + interfaceRoute.userinfo,
+    GaeaAjax.jsonpAjax(
+        domain + interfaceRoute.userInfo,
         {},
         (result) => {
-            if (result.nickname === '' &&
-                result.email === '' &&
-                result.phone === '') {
-                store.dispatch({
-                    type: 'SET_LOGOUT'
-                });
-            } else {
+            console.log(result);
+            if (result.retCode === 0) {
                 Base.cookie.set(userCookie, JSON.stringify({
                     nickname: result.nickname,
                     sex: result.sex,
@@ -66,6 +60,10 @@ export const inspectionUserInfo = (store) => {
                 }), 100);
                 store.dispatch({
                     type: 'SET_LOGIN'
+                });
+            } else if (result.retCode === 21) {
+                store.dispatch({
+                    type: 'SET_LOGOUT'
                 });
             }
         }

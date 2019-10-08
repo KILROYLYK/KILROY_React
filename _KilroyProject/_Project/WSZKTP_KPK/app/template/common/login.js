@@ -1,7 +1,7 @@
 /**
  * Public
  */
-import { $, W } from '../../../../../_Base/js/window';
+import { $, W } from '../../../../_Base/js/window';
 import { href } from '../../constant/href';
 import { inspectionUserInfo } from '../../controller/window';
 

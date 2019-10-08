@@ -1,7 +1,7 @@
 /**
  * Style
  */
-import '../../src/css/tippy.less';
+import '../../../src/css/tippy.less';
 
 /**
  * React

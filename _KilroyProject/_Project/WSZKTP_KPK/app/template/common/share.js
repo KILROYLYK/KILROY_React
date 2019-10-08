@@ -1,7 +1,7 @@
 /**
  * Public
  */
-import { w, Base } from '../../../../../_Base/js/window';
+import { w, Base } from '../../../../_Base/js/window';
 
 /**
  * Style
