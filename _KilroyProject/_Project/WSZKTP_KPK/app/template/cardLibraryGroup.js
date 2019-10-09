@@ -51,7 +51,7 @@ export default class cardLibraryGroupComponent extends React.Component {
             platform: pageState.platform,
             permission: false,
             edit: false,
-            autoEdit: Base.getUrlParam('state') === 'edit',
+            autoEdit: Base.url.getParam('state') === 'edit',
             id: history.location.hash.replace('#', ''),
             camp: '',
             like: 0,
@@ -215,13 +215,13 @@ export default class cardLibraryGroupComponent extends React.Component {
         
         return (
             <div className="box_create">
-                <a className="btn btn_1"
-                   href={href._void}
-                   onClick={
-                       _this.child.popup
-                           ? _this.clickOpenPopup1.bind(_this)
-                           : null
-                   }>创建牌组</a>
+                <button className="btn btn_1"
+                        onClick={
+                            _this.child.popup
+                                ? _this.clickOpenPopup1.bind(_this)
+                                : null
+                        }>创建牌组
+                </button>
             </div>
         );
     }
@@ -250,21 +250,20 @@ export default class cardLibraryGroupComponent extends React.Component {
         
         return (
             <div className="card_group_like">
-                <a className={'like' + (
+                <button className={'like' + (
                     _this.state.like !== 1
                         ? ' active'
                         : ''
                 )}
-                   href={href._void}
-                   onClick={_this.evaluationCardGroup.bind(_this, true)} />
+                        onClick={_this.evaluationCardGroup.bind(_this, true)} />
                 <p>{_this.state.likeTotal}</p>
-                <a className={'unlike' + (
+                <button className={'unlike' + (
                     _this.state.like !== 2
                         ? ' active'
                         : ''
                 )}
-                   href={href._void}
-                   onClick={_this.evaluationCardGroup.bind(_this, false)} />
+                        href={href._void}
+                        onClick={_this.evaluationCardGroup.bind(_this, false)} />
                 {
                     isPC()
                         ? _this.createShare()
@@ -283,21 +282,22 @@ export default class cardLibraryGroupComponent extends React.Component {
         
         if (_this.state.edit) {
             return <div className="btn_box">
-                <a className="btn btn_2" href={href._void}
-                   onClick={() => {
-                       _this.child.popup.popup.deleteCardGroup.open();
-                   }}><span>删除</span></a>
-                <a className="btn btn_2" href={href._void}
-                   onClick={_this.clickBtnSave.bind(_this)}>
+                <button className="btn btn_2"
+                        onClick={() => {
+                            _this.child.popup.popup.deleteCardGroup.open();
+                        }}><span>删除</span></button>
+                <button className="btn btn_2"
+                        href={href._void}
+                        onClick={_this.clickBtnSave.bind(_this)}>
                     <span>保存</span>
-                </a>
+                </button>
             </div>;
         } else {
             return <div className="btn_box">
-                <a className="btn btn_2" href={href._void}
-                   onClick={_this.clickBtnModify.bind(_this)}>
+                <button className="btn btn_2"
+                        onClick={_this.clickBtnModify.bind(_this)}>
                     <span>更新牌组信息</span>
-                </a>
+                </button>
             </div>;
         }
     }
@@ -706,16 +706,15 @@ export default class cardLibraryGroupComponent extends React.Component {
         const _this = this,
             {history} = _this.props;
         
-        // GaeaAjax.commonAjax(
-        //     'get',
-        //     domain + interfaceRoute.delDeck,
-        //     {
-        //         deck_id: _this.state.id
-        //     },
-        //     (result) => {
-        //         history.push(route.decks.path);
-        //     }
-        // );
+        GaeaAjax.encryptAjax(
+            domain + interfaceRoute.delDeck,
+            {
+                deck_id: _this.state.id
+            },
+            (result) => {
+                history.push(route.decks.path);
+            }
+        );
     }
     
     /******数据事件******/
@@ -727,54 +726,53 @@ export default class cardLibraryGroupComponent extends React.Component {
     getCardData() {
         const _this = this;
         
-        // GaeaAjax.commonAjax(
-        //     'get',
-        //     domain + interfaceRoute.getDeck,
-        //     {
-        //         deck_id: _this.state.id
-        //     },
-        //     (result) => {
-        //         if (result.self) {
-        //             _this.setState({
-        //                 permission: result.self
-        //             });
-        //         }
-        //
-        //         if (result.deck) {
-        //             _this.setState({
-        //                 camp: result.deck.faction,
-        //                 likeTotal: result.deck.like,
-        //                 info_title: result.deck.title,
-        //                 info_cost: result.deck.cost,
-        //                 info_number: result.deck.cardsNum,
-        //                 info_provision: result.deck.provisions,
-        //                 info_valid: result.deck.oldVersion === false,
-        //                 info_user: result.deck.author,
-        //                 info_create_time: result.deck.createAt,
-        //                 info_introduction: result.deck.article
-        //             }, () => {
-        //                 if (result.self && _this.state.autoEdit) {
-        //                     _this.setState({
-        //                         edit: true,
-        //                         autoEdit: false
-        //                     });
-        //                 }
-        //             });
-        //         }
-        //
-        //         if (result.cards) {
-        //             _this.setState({
-        //                 cardList: _this.getCardList(result.cards)
-        //             });
-        //         }
-        //
-        //         if (result.like) {
-        //             _this.setState({
-        //                 like: result.like
-        //             });
-        //         }
-        //     }
-        // );
+        GaeaAjax.encryptAjax(
+            domain + interfaceRoute.getDeck,
+            {
+                deck_id: _this.state.id
+            },
+            (result) => {
+                console.log(result.data);
+                if (result.retCode === 0) {
+                    if (result.data.self) {
+                        _this.setState({
+                            permission: result.data.self
+                        });
+                    }
+                    if (result.data.self) {
+                        _this.setState({
+                            camp: result.data.deck.faction,
+                            likeTotal: result.data.deck.like,
+                            info_title: result.data.deck.title,
+                            info_cost: result.data.deck.cost,
+                            info_number: result.data.deck.cardsNum,
+                            info_provision: result.data.deck.provisions,
+                            info_valid: result.data.deck.oldVersion === false,
+                            info_user: result.data.deck.author,
+                            info_create_time: result.data.deck.createAt,
+                            info_introduction: result.data.deck.article
+                        }, () => {
+                            if (result.data.self && _this.state.autoEdit) {
+                                _this.setState({
+                                    edit: true,
+                                    autoEdit: true
+                                });
+                            }
+                        });
+                    }
+                    if (result.data.cards) {
+                        _this.setState({
+                            cardList: _this.getCardList(result.data.cards)
+                        });
+                    }
+                    if (result.data.like) {
+                        _this.setState({
+                            like: result.data.like
+                        });
+                    }
+                }
+            }
+        );
     }
     
     /**
@@ -790,23 +788,22 @@ export default class cardLibraryGroupComponent extends React.Component {
             return;
         }
         
-        // GaeaAjax.commonAjax(
-        //     'get',
-        //     domain + interfaceRoute.like,
-        //     {
-        //         deck_id: _this.state.id,
-        //         like: type
-        //     },
-        //     (result) => {
-        //         _this.setState({
-        //             like: result.like
-        //         });
-        //
-        //         _this.setState({
-        //             likeTotal: _this.state.likeTotal + result.offset
-        //         });
-        //     }
-        // );
+        GaeaAjax.encryptAjax(
+            domain + interfaceRoute.like,
+            {
+                deck_id: _this.state.id,
+                like: type
+            },
+            (result) => {
+                _this.setState({
+                    like: result.like
+                });
+                
+                _this.setState({
+                    likeTotal: _this.state.likeTotal + result.offset
+                });
+            }
+        );
     }
     
     /******其他事件******/
@@ -985,37 +982,36 @@ export default class cardLibraryGroupComponent extends React.Component {
                 info_introduction: '<p>保存中...</p>'
             });
             
-            // GaeaAjax.commonAjax(
-            //     'post',
-            //     domain + interfaceRoute.modDeck,
-            //     JSON.stringify({
-            //         deck_id: _this.state.id,
-            //         title: _this.state.info_title,
-            //         article: newContent
-            //     }),
-            //     (result) => {
-            //         _this.getCardData();
-            //     },
-            //     (e) => {
-            //         const message = e.getResponseHeader('grpc-message');
-            //
-            //         _this.setState({
-            //             info_introduction: oldContent
-            //         });
-            //
-            //         if (message === 'title or article is too long') {
-            //             _this.child.popup.tool.message({
-            //                 title: '保存失败',
-            //                 content: '标题或内容过长'
-            //             });
-            //         } else {
-            //             _this.child.popup.tool.message({
-            //                 title: '保存失败',
-            //                 content: '系统错误，请稍后重试！'
-            //             });
-            //         }
-            //     }
-            // );
+            GaeaAjax.encryptAjax(
+                domain + interfaceRoute.modDeck,
+                JSON.stringify({
+                    deck_id: _this.state.id,
+                    title: _this.state.info_title,
+                    article: newContent
+                }),
+                (result) => {
+                    _this.getCardData();
+                },
+                (e) => {
+                    const message = e.getResponseHeader('grpc-message');
+                    
+                    _this.setState({
+                        info_introduction: oldContent
+                    });
+                    
+                    if (message === 'title or article is too long') {
+                        _this.child.popup.tool.message({
+                            title: '保存失败',
+                            content: '标题或内容过长'
+                        });
+                    } else {
+                        _this.child.popup.tool.message({
+                            title: '保存失败',
+                            content: '系统错误，请稍后重试！'
+                        });
+                    }
+                }
+            );
         }
     }
     

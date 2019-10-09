@@ -218,13 +218,13 @@ export default class cardLibraryComponent extends React.Component {
         
         return (
             <div className="box_create">
-                <a className="btn btn_1"
-                   href={href._void}
-                   onClick={
-                       _this.child.popup
-                           ? _this.clickOpenPopup1.bind(_this)
-                           : null
-                   }>创建牌组</a>
+                <button className="btn btn_1"
+                        onClick={
+                            _this.child.popup
+                                ? _this.clickOpenPopup1.bind(_this)
+                                : null
+                        }>创建牌组
+                </button>
             </div>
         );
     }
@@ -330,15 +330,14 @@ export default class cardLibraryComponent extends React.Component {
         return (
             <div className="condition">
                 <div className="switch_time">
-                    <a href={href._void}
-                       onClick={_this.clickSwitchTime.bind(_this)}>
+                    <button onClick={_this.clickSwitchTime.bind(_this)}>
                         {time[_this.state.time]}
                         <span className={'icon i_1' + (
                             _this.state.switchTime
                                 ? ' active'
                                 : ''
                         )} />
-                    </a>
+                    </button>
                     <div className={'popup_switch_time' + (
                         _this.state.switchTime
                             ? ' active'
@@ -346,51 +345,47 @@ export default class cardLibraryComponent extends React.Component {
                     )}>
                         {
                             time.map((v, i, a) => {
-                                return <a key={i} href={href._void}
-                                          onClick={_this.clickTime.bind(_this, i)}>{v}</a>;
+                                return <button key={i} onClick={_this.clickTime.bind(_this, i)}>{v}</button>;
                             })
                         }
                     </div>
                 </div>
                 <div className="switch_sort">
-                    <a href={href._void}
-                       onClick={_this.clickSequence.bind(_this)}>#
+                    <button onClick={_this.clickSequence.bind(_this)}>#
                         <span className={'icon i_2' + (
                             _this.state.sequence
                                 ? ' ' + _this.state.sequence
                                 : ''
                         )} />
-                    </a>
-                    <a href={href._void}>牌组名称</a>
+                    </button>
+                    <div>牌组名称</div>
                     {
                         isPC()
-                            ? <a href={href._void}>作者</a>
+                            ? <div>作者</div>
                             : null
                     }
                     {
                         isPC()
-                            ? <a href={href._void}
-                                 onClick={_this.clickCreateTime.bind(_this)}>
+                            ? <button onClick={_this.clickCreateTime.bind(_this)}>
                                 更新时间
                                 <span className={'icon i_2' + (
                                     _this.state.createTime
                                         ? ' ' + _this.state.createTime
                                         : ''
                                 )} />
-                            </a>
+                            </button>
                             : null
                     }
                     {
                         isPC()
-                            ? <a href={href._void}
-                                 onClick={_this.clickCost.bind(_this)}>
+                            ? <button onClick={_this.clickCost.bind(_this)}>
                                 合成花费
                                 <span className={'icon i_2' + (
                                     _this.state.cost
                                         ? ' ' + _this.state.cost
                                         : ''
                                 )} />
-                            </a>
+                            </button>
                             : null
                     }
                 </div>
@@ -489,24 +484,22 @@ export default class cardLibraryComponent extends React.Component {
         
         return (
             <div className="pagination">
-                <a className={'btn btn_2' +
+                <button className={'btn btn_2' +
                 (_this.state.btnPrev
                         ? ' active'
                         : ''
                 )}
-                   href={href._void}
-                   onClick={_this.clickBtnPrev.bind(_this)}>
+                        onClick={_this.clickBtnPrev.bind(_this)}>
                     <span>上一页</span>
-                </a>
-                <a className={'btn btn_2' +
+                </button>
+                <button className={'btn btn_2' +
                 (_this.state.btnNext
                         ? ' active'
                         : ''
                 )}
-                   href={href._void}
-                   onClick={_this.clickBtnNext.bind(_this)}>
+                        onClick={_this.clickBtnNext.bind(_this)}>
                     <span>下一页</span>
-                </a>
+                </button>
             </div>
         );
     }
@@ -738,18 +731,17 @@ export default class cardLibraryComponent extends React.Component {
         const _this = this,
             condition = _this.getCondition();
         
-        // GaeaAjax.commonAjax(
-        //     'get',
-        //     domain + interfaceRoute.leaders,
-        //     {},
-        //     (result) => {
-        //         if (result.leaders) {
-        //             _this.setState({
-        //                 campList: _this.getCamp(result.leaders)
-        //             });
-        //         }
-        //     }
-        // );
+        GaeaAjax.jsonpAjax(
+            domain + interfaceRoute.leaders,
+            {},
+            (result) => {
+                if (result.retCode === 0) {
+                    _this.setState({
+                        campList: _this.getCamp(result.data.leaders)
+                    });
+                }
+            }
+        );
     }
     
     /**
@@ -775,45 +767,43 @@ export default class cardLibraryComponent extends React.Component {
             btnNext: false
         });
         
-        // GaeaAjax.commonAjax(
-        //     'get',
-        //     domain + interfaceRoute.getDecks,
-        //     {
-        //         limit: _this.state.limit,
-        //         after_id: _this.state.limit * (_this.state.page - 1),
-        //         sort_by: condition.sort,
-        //         asc: condition.asc,
-        //         after: time,
-        //         filter: _this.state.search,
-        //         faction: _this.state.camp === 'Neutral' ? '' : _this.state.camp,
-        //         leader: _this.state.hero
-        //     },
-        //     (result) => {
-        //         if (result.decks) {
-        //             if (result.decks.length > 0) {
-        //                 _this.setState({
-        //                     cardGroupList: result.decks
-        //                 });
-        //             } else {
-        //                 _this.setState({
-        //                     noResult: true
-        //                 });
-        //             }
-        //         }
-        //         if (result.page) {
-        //             if (result.page.prev !== '') {
-        //                 _this.setState({
-        //                     btnPrev: true
-        //                 });
-        //             }
-        //             if (result.page.next !== '') {
-        //                 _this.setState({
-        //                     btnNext: true
-        //                 });
-        //             }
-        //         }
-        //     }
-        // );
+        GaeaAjax.encryptAjax(
+            domain + interfaceRoute.getDecks,
+            {
+                limit: _this.state.limit,
+                after_id: _this.state.limit * (_this.state.page - 1),
+                sort_by: condition.sort,
+                asc: condition.asc,
+                after: time,
+                filter: _this.state.search,
+                faction: _this.state.camp === 'Neutral' ? '' : _this.state.camp,
+                leader: _this.state.hero
+            },
+            (result) => {
+                console.log(result);
+                if (result.retCode === 0) {
+                    if (result.data.decks.length > 0) {
+                        _this.setState({
+                            cardGroupList: result.data.decks
+                        });
+                    } else {
+                        _this.setState({
+                            noResult: true
+                        });
+                    }
+                    if (result.data.page.prev !== '') {
+                        _this.setState({
+                            btnPrev: true
+                        });
+                    }
+                    if (result.data.page.next !== '') {
+                        _this.setState({
+                            btnNext: true
+                        });
+                    }
+                }
+            }
+        );
     }
     
     /******其他事件******/
@@ -852,7 +842,7 @@ export default class cardLibraryComponent extends React.Component {
                 month: 60 * 60 * 24 * 30,
                 year: 60 * 60 * 24 * 365
             },
-            dateInterval = Date.parse(new Date()) / 1000 - time;
+            dateInterval = (Date.parse(new Date()) - Date.parse(new Date(time))) / 1000;
         
         if (dateInterval < dateUnit.minute) {
             return parseInt(dateInterval) + '秒以前';
@@ -903,10 +893,10 @@ export default class cardLibraryComponent extends React.Component {
         
         Base.traversingObject(campList, (i, v) => {
             Base.traversingArray(heroList, (i0, v0) => {
-                if (i === v0.faction) {
+                if (i === v0.function) {
                     v.push({
                         name: v0.name,
-                        avatar: v0.avatar
+                        avatar: v0.thumbnail
                     });
                 }
             });

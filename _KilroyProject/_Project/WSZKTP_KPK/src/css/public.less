@@ -43,6 +43,12 @@ a:visited:hover {
   //color: @color_1;
 }
 
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
 img {
 }
 
@@ -121,7 +127,7 @@ footer {
     &:before {
       border-width: 5px 5px 0 5px;
       border-color: @color_3 transparent transparent transparent;
-      .transform(translateY(-3*@px) rotate(0deg));
+      .transform(rotate(0deg));
       .transformOrigin(center, bottom);
     }
     
@@ -145,13 +151,13 @@ footer {
     &:before {
       border-width: 0 5px 5px 5px;
       border-color: transparent transparent @color_3 transparent;
-      .transform(translateY(-4*@px));
+      .transform(translateY(-2*@px));
     }
     
     &:after {
       border-width: 5px 5px 0 5px;
       border-color: @color_3 transparent transparent transparent;
-      .transform(translateY(3*@px));
+      .transform(translateY(4*@px));
     }
     
     &.top {
@@ -169,6 +175,7 @@ footer {
 }
 
 .btn {
+  display: block;
   overflow: hidden;
   position: relative;
   

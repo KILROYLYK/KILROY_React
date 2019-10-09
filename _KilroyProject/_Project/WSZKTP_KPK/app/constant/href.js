@@ -7,7 +7,6 @@ import { official } from './interface';
  * 文案
  */
 export const href = {
-    _void: 'javascript:void(0);',
     login: official + '/site/src',
     logout: official + '/site/loginOut',
     register: official + '/signup',
