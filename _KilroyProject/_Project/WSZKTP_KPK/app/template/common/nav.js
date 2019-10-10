@@ -3,7 +3,6 @@
  */
 import { platform, isPC, isMobile } from '../../controller/window';
 import { nav } from '../../constant/nav';
-import { href } from '../../constant/href';
 
 /**
  * Style
@@ -69,10 +68,10 @@ export default class navComponent extends React.Component {
     componentDidMount() {
         const _this = this,
             {store} = _this.props;
-    
+        
         _this.update = store.subscribe(() => {
             const {pageState: newPageState} = store.getState();
-        
+            
             _this.setState({
                 platform: newPageState.platform,
                 scroll: newPageState.scroll
@@ -94,7 +93,7 @@ export default class navComponent extends React.Component {
      */
     componentWillUnmount() {
         const _this = this;
-    
+        
         _this.update();
     }
     
@@ -136,11 +135,10 @@ export default class navComponent extends React.Component {
         if (isPC()) return null;
         
         return (
-            <a className={'nav_menu' + (_this.state.mobileOpen ? ' active' : '')}
-               href={href._void}
-               onClick={_this.clickMobileSwitch.bind(_this)}>
+            <button className={'nav_menu' + (_this.state.mobileOpen ? ' active' : '')}
+                    onClick={_this.clickMobileSwitch.bind(_this)}>
                 <i /> <i /> <i />
-            </a>
+            </button>
         );
     }
     

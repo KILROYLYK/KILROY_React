@@ -6,7 +6,6 @@ import { scrollTop, isPC, isMobile, getImage } from '../controller/window';
 import { route } from '../controller/route';
 import { domain, interfaceRoute } from '../constant/interface';
 import { campCookie } from '../constant/cookie';
-import { href } from '../constant/href';
 import { camp } from '../constant/camp';
 
 /**
@@ -431,7 +430,6 @@ export default class cardLibraryComponent extends React.Component {
                                       state: ''
                                   }}
                                   className={v.faction}
-                                  href={href._void}
                                   onClick={() => {
                                       scrollTop(0);
                                   }}>

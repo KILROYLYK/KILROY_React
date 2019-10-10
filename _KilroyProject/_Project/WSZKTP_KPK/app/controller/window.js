@@ -49,7 +49,7 @@ export const inspectionUserInfo = (store) => {
         domain + interfaceRoute.userInfo,
         {},
         (result) => {
-            console.log(result);
+            // console.log(result);
             if (result.retCode === 0) {
                 Base.cookie.set(userCookie, JSON.stringify({
                     nickname: result.nickname,

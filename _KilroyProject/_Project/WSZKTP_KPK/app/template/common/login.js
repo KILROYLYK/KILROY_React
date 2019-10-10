@@ -126,10 +126,10 @@ export default class loginComponent extends React.Component {
         if (_this.state.show) {
             return (
                 <div className="box_login">
-                    <a href={href._void}
-                       onClick={
-                           _this.clickSwitchPopupPopup.bind(_this)
-                       }>登录</a>
+                    <button onClick={
+                        _this.clickSwitchPopupPopup.bind(_this)
+                    }>登录
+                    </button>
                     <span>或者</span>
                     <a href={href.register} target="_blank">注册</a>
                 </div>
@@ -176,9 +176,10 @@ export default class loginComponent extends React.Component {
             return (
                 <div className="box_logout">
                     <p>您好！{userinfo}</p>
-                    <a className="logout"
-                       href={href._void}
-                       onClick={_this.clickLogout.bind(_this)}>退出登录</a>
+                    <button className="logout"
+                            onClick={_this.clickLogout.bind(_this)
+                            }>退出登录
+                    </button>
                 </div>
             );
         } else {

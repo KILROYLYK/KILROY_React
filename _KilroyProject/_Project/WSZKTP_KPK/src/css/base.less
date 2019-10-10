@@ -26,17 +26,9 @@
 @gradient_1: transparent 0%, rgba(50, 41, 24, 1) 30%, url('@{src_img}') 70%, transparent 100%;
 @gradient_config_1: ~'1 / 1 / 0' stretch;
 @gradient_config_2: ~'', url('@{src_img}') no-repeat center;
+
 //******全局方法******//
 //***定位方法***//
-//定位-浮动定位
-.position(@p:absolute,@t:0*@px,@r:0*@px,@b:0*@px,@l:0*@px) when (@p=fixed) {
-  position: fixed;
-  top: @t;
-  left: @l;
-  right: @r;
-  bottom: @b;
-}
-
 //定位-绝对定位
 .position(@p:absolute,@t:0*@px,@r:0*@px,@b:0*@px,@l:0*@px) when (@p=absolute) {
   position: absolute;
@@ -79,6 +71,24 @@
   top: auto;
   left: 0;
   right: 0;
+  bottom: @b;
+}
+
+//定位-相对定位
+.position(@p:absolute,@t:0*@px,@r:0*@px,@b:0*@px,@l:0*@px) when (@p=relative) {
+  position: relative;
+  top: @t;
+  left: @l;
+  right: @r;
+  bottom: @b;
+}
+
+//定位-浮动定位
+.position(@p:absolute,@t:0*@px,@r:0*@px,@b:0*@px,@l:0*@px) when (@p=fixed) {
+  position: fixed;
+  top: @t;
+  left: @l;
+  right: @r;
   bottom: @b;
 }
 
@@ -135,7 +145,7 @@
   background: radial-gradient(@style) @config;
 }
 
-/***边框方法***/
+//***边框方法***//
 //边框
 .border(@slice,@width,@img) {
   border-width: @width;
@@ -255,7 +265,7 @@
 }
 
 //***动画方法***//
-//位移原点
+//偏移原点
 .transformOrigin(@x:center,@y:center) {
   -webkit-transform-origin: @x @y;
   -moz-transform-origin: @x @y;
@@ -264,7 +274,7 @@
   transform-origin: @x @y;
 }
 
-//位移
+//偏移
 .transform(@style:translate(0,0)) {
   -webkit-transform: @style;
   -moz-transform: @style;
@@ -280,6 +290,22 @@
   -o-transition: @style;
   -ms-transition: @style;
   transition: @style;
+}
+
+//自动过渡
+.autoTransition(@x:0,@y:0,@t:1s,@delay:~'') {
+  @transition: opacity @t @delay, transform @t @delay;
+  opacity: 0;
+  .transform(translate(@x, @y));
+  .transition(@transition);
+  pointer-events: none;
+}
+
+//开启自动过渡
+.autoTransitionActive() {
+  opacity: 1 !important;
+  .transform(translate(0, 0)) !important;
+  pointer-events: all !important;
 }
 
 //创建动画
@@ -366,33 +392,33 @@
   box-shadow: inset @style;
 }
 
-//灰度
-.gray(@percentage) {
-  -webkit-filter: grayscale(@percentage);
-  -moz-filter: grayscale(@percentage);
-  -o-filter: grayscale(@percentage);
-  -ms-filter: grayscale(@percentage);
-  filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);
-  _filter: none;
-}
-
-//高斯模糊
-.filter(@blur:10*@px) {
-  -webkit-filter: blur(@blur);
-  -moz-filter: blur(@blur);
-  -o-filter: blur(@blur);
-  -ms-filter: blur(@blur);
-  filter: blur(@blur);
+//滤镜
+.filter(@style) {
+  //blur(px) 高斯模糊
+  //brightness(%) 明暗
+  //contrast(%) 对比度
+  //drop-shadow(h-shadow v-shadow blur spread color) 阴影
+  //grayscale(%) 灰色
+  //hue-rotate(deg) 色相旋转
+  //invert(%) 反转图像
+  //opacity(%) 透明度
+  //saturate(%) 饱和度
+  //sepia(%) 深褐色
+  //url() XML
+  -webkit-filter: @style;
+  -moz-filter: @style;
+  -o-filter: @style;
+  -ms-filter: @style;
+  filter: @style;
 }
 
 //隐藏页面滚动条
 .scroll() {
-  overflow: -moz-scrollbars-none;
-  -webkit-overflow-scrolling: touch;
-  -ms-overflow-style: none;
-  &::-webkit-scrollbar {
-    width: 0 !important;
-  }
+  //overflow: -moz-scrollbars-none;
+  //-ms-overflow-style: none;
+  //&::-webkit-scrollbar {
+  //  width: 0 !important;
+  //}
 }
 
 //******Sprite******//

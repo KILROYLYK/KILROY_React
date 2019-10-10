@@ -2,11 +2,11 @@
  * Public
  */
 import { Popup } from '../../../../_Base/js/window';
-import { href } from '../../constant/href';
 
 /**
  * Style
  */
+import '../../../../_SDK/Popup/popup.less';
 import '../../../src/css/popup.less';
 
 /**
@@ -109,7 +109,7 @@ export default class popupComponent extends React.Component {
         
         return '<div class="popup_title"><span /></div>' +
             '<div class="popup_content"></div>' +
-            '<a class="btn btn_1" href="' + href._void + '">确定</a>';
+            '<button class="btn btn_1">确定</button>';
     }
     
     /**
@@ -121,8 +121,8 @@ export default class popupComponent extends React.Component {
         
         return '<div class="popup_title"><span>删除该攻略？</span></div>' +
             '<div class="popup_content">你的攻略和它包含的全部数据都会从牌组库中删除。</div>' +
-            '<a class="btn btn_3 delete" href="' + href._void + '">删除</a>' +
-            '<a class="btn btn_1 cancel" href="' + href._void + '">返回</a>';
+            '<button class="btn btn_3 delete">删除</button>' +
+            '<button class="btn btn_1 cancel">返回</button>';
     }
     
     /******弹窗事件******/
@@ -138,16 +138,16 @@ export default class popupComponent extends React.Component {
         
         _this.popup.message = new Popup(_this.state.popup.message, {
             content: _this.createPopupMessage(),
-            finish_callback: function () {
+            finishCallback: function () {
                 this.$content.find('.btn_1').on('click', () => {
                     _this.popup.message.close();
                 });
             },
-            open_callback: function () {
-                this.$content.find('.popup_title span').html(this.data.title);
-                this.$content.find('.popup_content').html(this.data.content);
+            openCallback: function (data) {
+                this.$content.find('.popup_title span').html(data.title);
+                this.$content.find('.popup_content').html(data.content);
             },
-            close_callback: function () {
+            closeCallback: function () {
                 this.data = {};
                 this.reset();
             }
@@ -155,8 +155,7 @@ export default class popupComponent extends React.Component {
         
         _this.tool.message = (data) => {
             if (!_this.popup.message) return;
-            _this.popup.message.data = data;
-            _this.popup.message.open();
+            _this.popup.message.open(data);
         };
     }
     
@@ -165,14 +164,14 @@ export default class popupComponent extends React.Component {
      * @param {function} callback 回调方法
      * @return {object} Dom对象
      */
-    scriptPopupDeleteCradGroup(callback) {
+    scriptPopupDeleteCardGroup(callback) {
         const _this = this;
         
         if (_this.popup.deleteCardGroup) return;
         
         _this.popup.deleteCardGroup = new Popup(_this.state.popup.deleteCardGroup, {
             content: _this.createPopupDeleteCardGroup(),
-            finish_callback: function () {
+            finishCallback: function () {
                 this.$content.find('.delete').on('click', () => {
                     if (callback) callback();
                     _this.popup.deleteCardGroup.close();

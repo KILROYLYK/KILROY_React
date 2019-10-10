@@ -5,7 +5,6 @@ import { $, Base, GaeaAjax } from '../../../_Base/js/window';
 import { winWidth, winHeight, scrollTop, isPC, isMobile, isLogin, getImage } from '../controller/window';
 import { route } from '../controller/route';
 import { domain, interfaceRoute } from '../constant/interface';
-import { href } from '../constant/href';
 import { camp } from '../constant/camp';
 
 /**
@@ -135,7 +134,7 @@ export default class cardLibraryGroupComponent extends React.Component {
         });
         
         _this.getCardData();
-        _this.child.popup.scriptPopupDeleteCradGroup(_this.clickBtnDelete);
+        _this.child.popup.scriptPopupDeleteCardGroup(_this.clickBtnDelete);
     }
     
     /**
@@ -193,7 +192,6 @@ export default class cardLibraryGroupComponent extends React.Component {
                 state: ''
             }}
                   className="btn btn_back"
-                  href={href._void}
                   onClick={() => {
                       scrollTop(0);
                   }}>
@@ -262,7 +260,6 @@ export default class cardLibraryGroupComponent extends React.Component {
                         ? ' active'
                         : ''
                 )}
-                        href={href._void}
                         onClick={_this.evaluationCardGroup.bind(_this, false)} />
                 {
                     isPC()
@@ -287,7 +284,6 @@ export default class cardLibraryGroupComponent extends React.Component {
                             _this.child.popup.popup.deleteCardGroup.open();
                         }}><span>删除</span></button>
                 <button className="btn btn_2"
-                        href={href._void}
                         onClick={_this.clickBtnSave.bind(_this)}>
                     <span>保存</span>
                 </button>
@@ -423,7 +419,7 @@ export default class cardLibraryGroupComponent extends React.Component {
      */
     createCard(index, cardInfo) {
         const _this = this,
-            isLeader = cardInfo.group === 'Leader';
+            isLeader = cardInfo.card_group === 'Leader';
         
         TippyCard.defaultProps.placement = isPC() ? 'right-start' : 'top';
         TippyCard.defaultProps.flipBehavior = isPC() ? ['right-start', 'right-end'] : ['top'];
@@ -457,15 +453,15 @@ export default class cardLibraryGroupComponent extends React.Component {
                  style={{
                      backgroundImage: 'url("' + getImage(cardInfo.slot) + '")'
                  }}
-                 data-id={cardInfo.id}><i />
+                 data-id={cardInfo.card_id}><i />
                 {
                     isLeader && cardInfo.provisions !== 0
                         ? <span>{cardInfo.provisions}</span>
                         : null
                 }
                 {
-                    !isLeader && cardInfo.power !== 0
-                        ? <span>{cardInfo.power}</span>
+                    !isLeader && cardInfo.card_power !== 0
+                        ? <span>{cardInfo.card_power}</span>
                         : <span className="star" />
                 }
                 {
@@ -473,7 +469,7 @@ export default class cardLibraryGroupComponent extends React.Component {
                         ? <span>{cardInfo.provisions}</span>
                         : null
                 }
-                <p>{cardInfo.cardName}</p>
+                <p>{cardInfo.card_name}</p>
                 {
                     !isLeader && cardInfo.most !== 1
                         ? <div className="most">x{cardInfo.most}</div>
@@ -499,13 +495,13 @@ export default class cardLibraryGroupComponent extends React.Component {
         
         if (scale < 0.57) scale = 0.57;
         
-        if (cardInfo.group === 'Leader') {
+        if (cardInfo.card_group === 'Leader') {
             grade = ' border_0';
-        } else if (cardInfo.group === 'Bronze') {
+        } else if (cardInfo.card_group === 'Bronze') {
             grade = ' border_1';
-        } else if (cardInfo.group === 'Silver') {
+        } else if (cardInfo.card_group === 'Silver') {
             grade = ' border_2';
-        } else if (cardInfo.group === 'Gold') {
+        } else if (cardInfo.card_group === 'Gold') {
             grade = ' border_3';
         }
         
@@ -537,7 +533,7 @@ export default class cardLibraryGroupComponent extends React.Component {
                              : {}
                      }>
                     <div className={'card_img' + grade + (
-                        isLeader || cardInfo.power !== 0
+                        isLeader || cardInfo.card_power !== 0
                             ? rarity
                             : '')}>
                         <div className="img"
@@ -554,11 +550,11 @@ export default class cardLibraryGroupComponent extends React.Component {
                                 : null
                         }
                         {
-                            !isLeader && cardInfo.power !== 0
+                            !isLeader && cardInfo.card_power !== 0
                                 ? <span className={'card_logo' + (
                                     index === 0 ? ' bg_captain' : ' bg'
                                 )}>
-                                <i>{cardInfo.power}</i>
+                                <i>{cardInfo.card_power}</i>
                             </span>
                                 : null
                         }
@@ -572,7 +568,7 @@ export default class cardLibraryGroupComponent extends React.Component {
                     </div>
                     <div className="card_text">
                         <div className="card_title">
-                            <span>{cardInfo.cardName}</span>
+                            <span>{cardInfo.card_name}</span>
                         </div>
                         <div className="card_content">
                             <div className="text"
@@ -732,24 +728,23 @@ export default class cardLibraryGroupComponent extends React.Component {
                 deck_id: _this.state.id
             },
             (result) => {
-                console.log(result.data);
                 if (result.retCode === 0) {
                     if (result.data.self) {
                         _this.setState({
                             permission: result.data.self
                         });
                     }
-                    if (result.data.self) {
+                    if (result.data.deck) {
                         _this.setState({
                             camp: result.data.deck.faction,
                             likeTotal: result.data.deck.like,
                             info_title: result.data.deck.title,
                             info_cost: result.data.deck.cost,
-                            info_number: result.data.deck.cardsNum,
+                            info_number: result.data.deck.cardsnum,
                             info_provision: result.data.deck.provisions,
-                            info_valid: result.data.deck.oldVersion === false,
+                            info_valid: result.data.deck.oldversion === false,
                             info_user: result.data.deck.author,
-                            info_create_time: result.data.deck.createAt,
+                            info_create_time: result.data.deck.create_at,
                             info_introduction: result.data.deck.article
                         }, () => {
                             if (result.data.self && _this.state.autoEdit) {
@@ -814,10 +809,9 @@ export default class cardLibraryGroupComponent extends React.Component {
      */
     noLogin() {
         const _this = this;
-        
         _this.child.popup.tool.message({
-            title: '',
-            content: '请先登录！'
+            title: '请先登录！',
+            content: ''
         });
     }
     
@@ -907,14 +901,14 @@ export default class cardLibraryGroupComponent extends React.Component {
         let kind = 0;
         
         Base.traversingArray(cardList, (k, v) => {
-            if (v.group === 'Leader') {
+            if (v.card_group === 'Leader') {
                 v.most = 1;
                 leader.push(v);
             } else {
                 v.most = 1;
-                if (v.power > 0) kind++;
+                if (v.card_power > 0) kind++;
                 Base.traversingArray(list, (k0, v0) => {
-                    if (v.id === v0.id) {
+                    if (v.card_id === v0.card_id) {
                         v.most++;
                         list.splice(k0, 1);
                     }
@@ -925,7 +919,7 @@ export default class cardLibraryGroupComponent extends React.Component {
         
         list.sort((a, b) => {
             if (a.provisions === b.provisions) {
-                return b.power - a.power;
+                return b.card_power - a.card_power;
             }
             return b.provisions - a.provisions;
         });

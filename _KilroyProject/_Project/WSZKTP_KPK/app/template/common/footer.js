@@ -128,11 +128,11 @@ export default class footerComponent extends React.Component {
             <div className="footer_attention">
                 <p><span>关注我们</span></p>
                 <div className="community">
-                    <a className="wechat" href={href._void}>
+                    <button className="wechat">
                         <div className="qr_box">
                             <img src={href.qr_wechat} />
                         </div>
-                    </a>
+                    </button>
                     <a className="weibo" href={href.weibo} />
                 </div>
                 <div className="contact">
