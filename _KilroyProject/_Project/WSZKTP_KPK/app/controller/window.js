@@ -143,6 +143,6 @@ export const isLogin = () => {
  * @return {string} 图片地址
  */
 export const getImage = (id) => {
-    return domain + interfaceRoute.image + '/' + id + '.jpeg';
+    return interfaceRoute.image + '/' + id + '.jpeg';
 };
 

@@ -323,8 +323,8 @@ export default class cardLibraryGroupComponent extends React.Component {
     createGroupInfo() {
         const _this = this;
         
-        TippyMessage.defaultProps.trigger = isPC() ? 'mouseenter focus' : 'click';
-        TippyMessage.defaultProps.hideOnClick = isMobile();
+        const trigger = isPC() ? 'mouseenter focus' : 'click',
+            hideOnClick = isMobile();
         
         return (
             <div className="card_group_info">
@@ -353,24 +353,40 @@ export default class cardLibraryGroupComponent extends React.Component {
                         : null
                 }
                 <div className="info">
-                    <TippyMessage content={
-                        createTippyMessage('碎片', '合成该牌组中的全部卡牌所需的碎片总数')
-                    }>
+                    <TippyMessage trigger={trigger}
+                                  hideOnClick={hideOnClick}
+                                  content={
+                                      createTippyMessage(
+                                          '碎片',
+                                          '合成该牌组中的全部卡牌所需的碎片总数'
+                                      )}>
                         <div className="cost">{_this.getCost(_this.state.info_cost)}</div>
                     </TippyMessage>
-                    <TippyMessage content={
-                        createTippyMessage('卡牌', '代表了该牌组中的卡牌数')
-                    }>
+                    <TippyMessage trigger={trigger}
+                                  hideOnClick={hideOnClick}
+                                  content={
+                                      createTippyMessage(
+                                          '卡牌',
+                                          '代表了该牌组中的卡牌数'
+                                      )}>
                         <div className="number">{_this.state.info_number}</div>
                     </TippyMessage>
-                    <TippyMessage content={
-                        createTippyMessage('单位', '代表了该牌组中的单位数')
-                    }>
+                    <TippyMessage trigger={trigger}
+                                  hideOnClick={hideOnClick}
+                                  content={
+                                      createTippyMessage(
+                                          '单位',
+                                          '代表了该牌组中的单位数'
+                                      )}>
                         <div className="units">{_this.state.info_units}</div>
                     </TippyMessage>
-                    <TippyMessage content={
-                        createTippyMessage('资源点数', '该牌组的总资源点数')
-                    }>
+                    <TippyMessage trigger={trigger}
+                                  hideOnClick={hideOnClick}
+                                  content={
+                                      createTippyMessage(
+                                          '资源点数',
+                                          '该牌组的总资源点数'
+                                      )}>
                         <div className="provision">{_this.state.info_provision}</div>
                     </TippyMessage>
                     <div className="user">
@@ -421,31 +437,30 @@ export default class cardLibraryGroupComponent extends React.Component {
         const _this = this,
             isLeader = cardInfo.card_group === 'Leader';
         
-        TippyCard.defaultProps.placement = isPC() ? 'right-start' : 'top';
-        TippyCard.defaultProps.flipBehavior = isPC() ? ['right-start', 'right-end'] : ['top'];
-        TippyCard.defaultProps.trigger = isPC() ? 'mouseenter focus' : 'click';
-        TippyCard.defaultProps.hideOnClick = isMobile();
-        TippyCard.defaultProps.onShow = (e) => {
-            e.reference.classList.add('active');
-            e.popper.classList.add('tippy_card_mobile');
-            setTimeout(() => {
-                const tippy = e.popper,
-                    contentText = $(e.popperChildren.content).find('.card_text'),
-                    tippyTop = tippy.getBoundingClientRect().top,
-                    contentTextHeight = contentText.height();
-                
-                if (tippyTop + contentTextHeight > winHeight()) {
-                    contentText.addClass('border');
-                } else {
-                    contentText.removeClass('border');
-                }
-            }, 10);
-        };
-        TippyCard.defaultProps.onHide = (e) => {
-            e.reference.classList.remove('active');
-        };
-        
         return <TippyCard key={index}
+                          placement={isPC() ? 'right-start' : 'top'}
+                          flipBehavior={isPC() ? ['right-start', 'right-end'] : ['top']}
+                          trigger={isPC() ? 'mouseenter focus' : 'click'}
+                          hideOnClick={isMobile()}
+                          onShow={(e) => {
+                              e.reference.classList.add('active');
+                              e.popper.classList.add('tippy_card_mobile');
+                              setTimeout(() => {
+                                  const tippy = e.popper,
+                                      contentText = $(e.popperChildren.content).find('.card_text'),
+                                      tippyTop = tippy.getBoundingClientRect().top,
+                                      contentTextHeight = contentText.height();
+                
+                                  if (tippyTop + contentTextHeight > winHeight()) {
+                                      contentText.addClass('border');
+                                  } else {
+                                      contentText.removeClass('border');
+                                  }
+                              }, 10);
+                          }}
+                          onHide={(e) => {
+                              e.reference.classList.remove('active');
+                          }}
                           content={
                               _this.createCardInfo(index, cardInfo)
                           }>

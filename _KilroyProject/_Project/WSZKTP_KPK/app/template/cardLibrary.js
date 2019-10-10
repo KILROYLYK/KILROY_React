@@ -414,9 +414,6 @@ export default class cardLibraryComponent extends React.Component {
     createCardGroupList() {
         const _this = this;
         
-        TippyMessage.defaultProps.trigger = isPC() ? 'mouseenter focus' : 'click';
-        TippyMessage.defaultProps.hideOnClick = isMobile();
-        
         return (
             <div className="card_group_list">
                 {
@@ -448,11 +445,18 @@ export default class cardLibraryComponent extends React.Component {
                                         {v.author}
                                     </div>
                                     <div className="time">
-                                        <TippyMessage content={
-                                            !v.valid
-                                                ? createTippyMessage('当前版本牌组', '在当前版本的游戏中被创建/编辑')
-                                                : createTippyMessage('牌组待更新', '在过去版本的游戏中被创建/编辑')
-                                        }>
+                                        <TippyMessage trigger={isPC() ? 'mouseenter focus' : 'click'}
+                                                      hideOnClick={isMobile()}
+                                                      content={
+                                                          !v.valid
+                                                              ? createTippyMessage(
+                                                              '当前版本牌组',
+                                                              '在当前版本的游戏中被创建/编辑'
+                                                              )
+                                                              : createTippyMessage(
+                                                              '牌组待更新',
+                                                              '在过去版本的游戏中被创建/编辑'
+                                                              )}>
                                             <i className={
                                                 !v.valid
                                                     ? ' active'

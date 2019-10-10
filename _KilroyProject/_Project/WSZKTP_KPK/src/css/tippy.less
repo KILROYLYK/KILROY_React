@@ -4,10 +4,15 @@
   pointer-events: all;
   
   .tippy-tooltip {
-    padding: 0 !important;
+    overflow: initial !important;
     margin: 0 auto !important;
+    border-radius: 0 !important;
     background: none !important;
     font-size: 14*@px;
+    
+    .tippy-content {
+      padding: 0;
+    }
     
     .tippy-backdrop {
       background: none !important;

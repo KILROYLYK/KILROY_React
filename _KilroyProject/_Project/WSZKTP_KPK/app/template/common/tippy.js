@@ -1,6 +1,7 @@
 /**
  * Style
  */
+import 'tippy.js/dist/tippy.css';
 import '../../../src/css/tippy.less';
 
 /**
@@ -32,43 +33,44 @@ export const createTippyMessage = (title, content) => {
  * @return {object} Dom对象
  */
 export const TippyMessage = (props) => {
-    return <Tippy {...props} />;
-};
-
-TippyMessage.defaultProps = {
-    theme: 'translucent',
-    boundary: 'HTMLElement',
-    placement: 'top',
-    delay: 0,
-    duration: 500,
-    distance: 5,
-    offset: 0,
-    zIndex: 1,
-    maxWidth: 250,
-    animateFill: false,
-    flip: true,
-    flipBehavior: ['top'],
-    flipOnUpdate: true,
-    ignoreAttributes: true,
-    trigger: 'mouseenter focus',
-    hideOnClick: false,
-    popperOptions: {
-        modifiers: {
-            preventOverflow: {
-                enabled: true
-            }
-        }
-    },
-    onCreate: () => {
-    },
-    onShow: () => {
-    },
-    onShown: () => {
-    },
-    onHide: () => {
-    },
-    onHidden: () => {
-    }
+    return <Tippy arrow={false}
+                  theme="translucent"
+                  boundary="HTMLElement"
+                  animation="fade"
+                  placement="top"
+                  flip={true}
+                  flipBehavior={['top']}
+                  flipOnUpdate={true}
+                  offset={0}
+                  distance={5}
+                  zIndex={1}
+                  maxWidth={250}
+                  interactive={false}
+                  interactiveBorder={0}
+                  delay={0}
+                  duration={500}
+                  trigger="mouseenter focus"
+                  touch={true}
+                  hideOnClick={false}
+                  ignoreAttributes={true}
+                  popperOptions={{
+                      modifiers: {
+                          preventOverflow: {
+                              enabled: true
+                          }
+                      }
+                  }}
+                  onCreate={() => {
+                  }}
+                  onShow={() => {
+                  }}
+                  onShown={() => {
+                  }}
+                  onHide={() => {
+                  }}
+                  onHidden={() => {
+                  }}
+                  {...props} />;
 };
 
 /**
@@ -77,32 +79,42 @@ TippyMessage.defaultProps = {
  * @return {object} Dom对象
  */
 export const TippyCard = (props) => {
-    return <Tippy {...props} />;
+    return <Tippy arrow={false}
+                  theme="translucent"
+                  boundary="viewport"
+                  animation="fade"
+                  placement="right-start"
+                  flip={true}
+                  flipBehavior={['right-start', 'right-end']}
+                  flipOnUpdate={true}
+                  offset={0}
+                  distance={5}
+                  zIndex={1}
+                  maxWidth={750}
+                  interactive={false}
+                  interactiveBorder={0}
+                  delay={0}
+                  duration={500}
+                  trigger="mouseenter focus"
+                  touch={true}
+                  hideOnClick={false}
+                  ignoreAttributes={true}
+                  popperOptions={{
+                      modifiers: {
+                          preventOverflow: {
+                              enabled: true
+                          }
+                      }
+                  }}
+                  onCreate={() => {
+                  }}
+                  onShow={() => {
+                  }}
+                  onShown={() => {
+                  }}
+                  onHide={() => {
+                  }}
+                  onHidden={() => {
+                  }}
+                  {...props} />;
 };
-
-TippyCard.defaultProps = {
-    theme: 'translucent',
-    boundary: 'viewport',
-    placement: 'right-start',
-    delay: 0,
-    duration: 500,
-    distance: 5,
-    offset: 0,
-    zIndex: 1,
-    maxWidth: 750,
-    animateFill: false,
-    flip: true,
-    flipBehavior: ['right-start', 'right-end'],
-    flipOnUpdate: true,
-    ignoreAttributes: true,
-    trigger: 'mouseenter focus',
-    hideOnClick: false,
-    popperOptions: {
-        modifiers: {
-            preventOverflow: {
-                enabled: true
-            }
-        }
-    }
-};
-

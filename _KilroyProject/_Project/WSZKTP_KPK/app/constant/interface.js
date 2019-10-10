@@ -28,8 +28,8 @@ export const official = officialCommon[server];
  */
 const interfaceCommon = '/gwent-decks';
 export const interfaceRoute = {
+    image: 'https://image.gaeamobile.net', //获取图片
     userInfo: '/sso/check-login', //获取登录状态及用户信息
-    image: '/gwent-decks-img', //获取图片
     like: interfaceCommon + '/like', //点赞
     leaders: interfaceCommon + '/leaders', //获取阵营及领袖
     getDecks: interfaceCommon + '/getdecks', //获取牌组列表
