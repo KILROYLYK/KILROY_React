@@ -778,7 +778,6 @@ export default class cardLibraryComponent extends React.Component {
                 leader: _this.state.hero
             },
             (result) => {
-                console.log(result);
                 if (result.retCode === 0) {
                     if (result.data.decks.length > 0) {
                         _this.setState({

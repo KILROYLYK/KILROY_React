@@ -1,23 +1,26 @@
 @import 'base';
 
 .login {
-  .position(fixed, 110*@px, 10*@px, auto, auto);
+  .position(fixed, 110*@px, 15*@px, auto, auto);
   z-index: 6;
   width: 400*@px;
   height: 50*@px;
-  .font(right, 25*@px, @color_4, 14*@px, true);
-  .fontShadow(@style:0 0 20*@px fade(@color_2,10));
+  text-align: right;
+  font-size: 0;
   pointer-events: none;
   
+  button,
   a {
     display: inline-block !important;
-    color: @color_4 !important;
+    padding: 1*@px 5*@px 2*@px;
+    .font(center, 25*@px, @color_4, 14*@px, true);
+    .fontShadow(@style:0 0 20*@px fade(@color_2,10));
     pointer-events: all;
   }
   
   span {
     margin: 0 10*@px;
-    color: @color_1;
+    .font(center, 25*@px, @color_1, 14*@px, true);
   }
   
   i {
