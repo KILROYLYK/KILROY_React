@@ -7,12 +7,13 @@ import { getUserInfo, delUserInfo } from '../controller/window';
  * 默认状态
  */
 export const userInitialState = {
-    show: false,
-    nickname: '',
+    id: 0,
+    token: '',
     email: '',
+    nickname: '',
     phone: '',
-    sex: '',
-    avatar: ''
+    avatar: '',
+    sex: ''
 };
 
 /**
@@ -24,9 +25,9 @@ export const userInitialState = {
 export function changUserState(state = userInitialState, action) {
     switch (action.type) {
         case 'SET_LOGIN':
-            const user = getUserInfo();
+            const user = getUserInfo() || userInitialState;
             user.show = true;
-            return user || userInitialState;
+            return user;
         case 'SET_LOGOUT':
             delUserInfo();
             userInitialState.show = true;

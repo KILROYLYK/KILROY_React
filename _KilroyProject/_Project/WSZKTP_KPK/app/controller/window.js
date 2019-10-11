@@ -49,19 +49,24 @@ export const inspectionUserInfo = (store) => {
         domain + interfaceRoute.userInfo,
         {},
         (result) => {
-            // console.log(result);
             if (result.retCode === 0) {
                 Base.cookie.set(userCookie, JSON.stringify({
-                    nickname: result.nickname,
-                    sex: result.sex,
-                    email: result.email,
-                    phone: result.phone,
-                    avatar: result.avatar
+                    id: result.data.guid,
+                    token: result.data.loginToken,
+                    email: result.data.email,
+                    nickname: result.data.nickname,
+                    phone: result.data.mobile,
+                    avatar: result.avatar,
+                    sex: result.data.sex
                 }), 100);
                 store.dispatch({
                     type: 'SET_LOGIN'
                 });
             } else if (result.retCode === 21) {
+                store.dispatch({
+                    type: 'SET_LOGOUT'
+                });
+            } else {
                 store.dispatch({
                     type: 'SET_LOGOUT'
                 });
@@ -75,7 +80,7 @@ export const inspectionUserInfo = (store) => {
  * @return {object} 用户信息
  */
 export const getUserInfo = () => {
-    return JSON.parse(Base.cookie.get(userCookie));
+    return JSON.parse(Base.cookie.get(userCookie) || '{}');
 };
 
 /**
@@ -83,14 +88,17 @@ export const getUserInfo = () => {
  * @return {void}
  */
 export const delUserInfo = () => {
-    Base.cookie.set(userCookie, JSON.stringify({
-        nickname: userInitialState.nickname,
-        sex: userInitialState.sex,
-        email: userInitialState.email,
-        phone: userInitialState.phone,
-        avatar: userInitialState.avatar
-    }), 100);
-    // Base.cookie.del(userCookie);
+    Base.cookie.del(userCookie);
+};
+
+/**
+ * 判断用户登录
+ * @return {boolean} 是否登录
+ */
+export const isLogin = () => {
+    const user = getUserInfo();
+    
+    return !!user.id;
 };
 
 /**
@@ -100,11 +108,7 @@ export const delUserInfo = () => {
 export const platform = () => {
     const media = W.matchMedia('(min-width:1200px)');
     
-    if (media.matches) {
-        return 'pc';
-    } else {
-        return 'mobile';
-    }
+    return media.matches ? 'pc' : 'mobile';
 };
 
 /**
@@ -112,8 +116,7 @@ export const platform = () => {
  * @return {boolean} 是否是PC端
  */
 export const isPC = () => {
-    if (platform() === 'pc') return true;
-    return false;
+    return platform() === 'pc';
 };
 
 /**
@@ -121,20 +124,7 @@ export const isPC = () => {
  * @return {boolean} 是否是Mobile端
  */
 export const isMobile = () => {
-    if (platform() === 'mobile') return true;
-    return false;
-};
-
-/**
- * 判断用户登录
- * @return {boolean} 是否登录
- */
-export const isLogin = () => {
-    const user = JSON.parse(Base.cookie.get(userCookie));
-    
-    if (user.nickname || user.email || user.phone) return true;
-    
-    return false;
+    return platform() === 'mobile';
 };
 
 /**

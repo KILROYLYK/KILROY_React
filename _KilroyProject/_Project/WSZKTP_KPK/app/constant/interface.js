@@ -1,16 +1,14 @@
 /**
  * 服务器类型
  */
-const server = 'test';
+const server = 'formal';
 
 /**
  * 接口域名
  */
 const domainCommon = {
     test: 'http://acts-test.gaeamobile.net',
-    formal: 'https://acts.gaeamobile.net',
-    officialTest: 'http://gwent-test.playgwent.cn',
-    officialFormal: 'https://www.playgwent.cn'
+    formal: 'https://acts.gaeamobile.net'
 };
 export const domain = domainCommon[server];
 

@@ -3,7 +3,7 @@
  */
 import { $, W } from '../../../../_Base/js/window';
 import { href } from '../../constant/href';
-import { inspectionUserInfo } from '../../controller/window';
+import { inspectionUserInfo, isLogin } from '../../controller/window';
 
 /**
  * Style
@@ -37,11 +37,13 @@ export default class loginComponent extends React.Component {
         _this.state = {
             switchPopup: false,
             show: userState.show,
-            nickname: userState.nickname,
+            id: userState.id,
+            token: userState.token,
             email: userState.email,
+            nickname: userState.nickname,
             phone: userState.phone,
-            sex: userState.sex,
-            avatar: userState.avatar
+            avatar: userState.avatar,
+            sex: userState.sex
         };
     }
     
@@ -59,7 +61,7 @@ export default class loginComponent extends React.Component {
                     <i id="loginBefore" />
                     <i id="loginAfter"><i /></i>
                     {
-                        _this.state.nickname || _this.state.email || _this.state.phone
+                        isLogin()
                             ? _this.createLogout()
                             : _this.createLogin()
                     }
@@ -78,15 +80,17 @@ export default class loginComponent extends React.Component {
             {store} = _this.props;
         
         _this.update = store.subscribe(() => {
-            const {userState: newUserState} = store.getState();
+            const {userState} = store.getState();
             
             _this.setState({
-                show: newUserState.show,
-                nickname: newUserState.nickname,
-                email: newUserState.email,
-                phone: newUserState.phone,
-                sex: newUserState.sex,
-                avatar: newUserState.avatar
+                show: userState.show,
+                id: userState.id,
+                token: userState.token,
+                email: userState.email,
+                nickname: userState.nickname,
+                phone: userState.phone,
+                avatar: userState.avatar,
+                sex: userState.sex
             });
         });
         
@@ -168,14 +172,15 @@ export default class loginComponent extends React.Component {
      */
     createLogout() {
         const _this = this,
-            userinfo = _this.state.email ||
+            user = _this.state.email ||
                 _this.state.nickname ||
-                _this.state.phone;
+                _this.state.phone ||
+                _this.state.id;
         
         if (_this.state.show) {
             return (
                 <div className="box_logout">
-                    <p>您好！{userinfo}</p>
+                    <p>您好！{user}</p>
                     <button className="logout"
                             onClick={_this.clickLogout.bind(_this)
                             }>退出登录
