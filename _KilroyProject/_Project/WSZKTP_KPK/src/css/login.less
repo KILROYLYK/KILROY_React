@@ -12,7 +12,7 @@
   button,
   a {
     display: inline-block !important;
-    padding: 1*@px 5*@px 2*@px;
+    padding: 0 5*@px;
     .font(center, 25*@px, @color_4, 14*@px, true);
     .fontShadow(@style:0 0 20*@px fade(@color_2,10));
     pointer-events: all;
@@ -35,15 +35,15 @@
   .box_logout {
     p {
       display: inline-block;
-      font-size: 18*@px;
+      .font(rigth, 25*@px, @color_4, 18*@px, true);
     }
     
-    a {
+    button {
       margin-left: 10*@px;
     }
     
     .logout {
-      color: @color_5 !important;
+      .font(center, 25*@px, @color_5, 14*@px, true);
     }
   }
   
