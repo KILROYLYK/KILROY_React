@@ -65,6 +65,15 @@ export default class cardLibraryComponent extends React.Component {
             btnNext: false
         };
         
+        _this.flag = {
+            leader: true,
+            deck: true
+        };
+        
+        _this.setTime = {
+            deck: null
+        };
+        
         if (!_this.state.sequence &&
             !_this.state.createTime &&
             !_this.state.cost) {
@@ -525,6 +534,8 @@ export default class cardLibraryComponent extends React.Component {
     clickCardCamp(campName) {
         const _this = this;
         
+        if (!_this.flag.deck) return;
+        
         _this.setState({
             search: '',
             camp: campName,
@@ -547,6 +558,8 @@ export default class cardLibraryComponent extends React.Component {
      */
     clickCardHero(campName, heroName) {
         const _this = this;
+        
+        if (!_this.flag.deck) return;
         
         _this.setState({
             search: '',
@@ -588,6 +601,8 @@ export default class cardLibraryComponent extends React.Component {
     clickTime(time) {
         const _this = this;
         
+        if (!_this.flag.deck) return;
+        
         _this.setState({
             switchTime: false,
             time: time,
@@ -604,6 +619,8 @@ export default class cardLibraryComponent extends React.Component {
      */
     clickSequence() {
         const _this = this;
+        
+        if (!_this.flag.deck) return;
         
         if (!_this.state.sequence ||
             _this.state.sequence === 'top') {
@@ -636,6 +653,8 @@ export default class cardLibraryComponent extends React.Component {
     clickCreateTime() {
         const _this = this;
         
+        if (!_this.flag.deck) return;
+        
         if (!_this.state.createTime ||
             _this.state.createTime === 'top') {
             _this.setState({
@@ -666,6 +685,8 @@ export default class cardLibraryComponent extends React.Component {
      */
     clickCost() {
         const _this = this;
+        
+        if (!_this.flag.deck) return;
         
         if (!_this.state.cost ||
             _this.state.cost === 'top') {
@@ -698,6 +719,8 @@ export default class cardLibraryComponent extends React.Component {
     clickBtnPrev() {
         const _this = this;
         
+        if (!_this.flag.deck) return;
+        
         _this.setState({
             page: _this.state.page - 1
         }, () => {
@@ -713,6 +736,8 @@ export default class cardLibraryComponent extends React.Component {
      */
     clickBtnNext() {
         const _this = this;
+        
+        if (!_this.flag.deck) return;
         
         _this.setState({
             page: _this.state.page + 1
@@ -733,14 +758,24 @@ export default class cardLibraryComponent extends React.Component {
         const _this = this,
             condition = _this.getCondition();
         
+        if (!_this.flag.leader) return;
+        _this.flag.leader = false;
+        
         GaeaAjax.jsonpAjax(
             domain + interfaceRoute.leaders,
             {},
             (result) => {
+                setTimeout(() => {
+                    _this.flag.leader = true;
+                }, 500);
                 if (result.retCode === 0) {
                     _this.setState({
                         campList: _this.getCamp(result.data.leaders)
                     });
+                } else {
+                    setTimeout(() => {
+                        _this.getCampData();
+                    }, 1000);
                 }
             }
         );
@@ -753,6 +788,9 @@ export default class cardLibraryComponent extends React.Component {
     getCardGroupData() {
         const _this = this,
             condition = _this.getCondition();
+        
+        if (!_this.flag.deck) return;
+        _this.flag.deck = false;
         
         //颠倒时间参数
         let time = _this.state.time;
@@ -782,6 +820,9 @@ export default class cardLibraryComponent extends React.Component {
                 leader: _this.state.hero
             },
             (result) => {
+                setTimeout(() => {
+                    _this.flag.deck = true;
+                }, 200);
                 if (result.retCode === 0) {
                     if (result.data.decks.length > 0) {
                         _this.setState({
@@ -945,6 +986,8 @@ export default class cardLibraryComponent extends React.Component {
     updateSearch(e) {
         const _this = this;
         
+        if (_this.setTime) clearTimeout(_this.setTime);
+        
         _this.setState({
             search: e.target.value,
             camp: '',
@@ -954,8 +997,10 @@ export default class cardLibraryComponent extends React.Component {
             cost: false,
             page: 1
         }, () => {
-            _this.saveCookie();
-            _this.getCardGroupData();
+            _this.setTime = setTimeout(() => {
+                _this.saveCookie();
+                _this.getCardGroupData();
+            }, 200);
         });
     }
     

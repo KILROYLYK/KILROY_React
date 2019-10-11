@@ -106,6 +106,7 @@
     width: 60*@px;
     height: 45*@px;
     .transition(all @time);
+    pointer-events: none;
     
     &:before {
       content: '';
@@ -131,6 +132,7 @@
     
     &.active {
       opacity: 1;
+      pointer-events: all;
     }
   }
   
