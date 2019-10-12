@@ -17,7 +17,7 @@ export const domain = domainCommon[server];
  */
 const officialCommon = {
     test: 'http://gwent-test.playgwent.cn',
-    formal: 'https://www.playgwent.cn'
+    formal: (/playgwent.cn/).test(location.origin) ? location.origin : 'https://playgwent.cn'
 };
 export const official = officialCommon[server];
 

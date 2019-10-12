@@ -74,8 +74,9 @@ export default class cardLibraryGroupComponent extends React.Component {
         
         _this.flag = {
             deck: true,
-            like: true,
-            modDeck: true
+            mod: true,
+            del: true,
+            like: true
         };
         
         _this.child = {};
@@ -726,12 +727,12 @@ export default class cardLibraryGroupComponent extends React.Component {
      */
     clickBtnDelete() {
         const _this = this;
-    
+        
         if (!isLogin()) {
             _this.noLogin();
             return;
         }
-    
+        
         _this.setState({
             edit: false,
             permission: false,
@@ -853,8 +854,8 @@ export default class cardLibraryGroupComponent extends React.Component {
     updateDeck() {
         const _this = this;
         
-        if (!_this.flag.del) return;
-        _this.flag.modDeck = false;
+        if (!_this.flag.mod) return;
+        _this.flag.mod = false;
         
         if (_this.child.editor) {
             const content = _this.child.editor.getContent();
@@ -874,7 +875,7 @@ export default class cardLibraryGroupComponent extends React.Component {
                 },
                 (result) => {
                     setTimeout(() => {
-                        _this.flag.modDeck = true;
+                        _this.flag.mod = true;
                     }, 500);
                     if (result.retCode === 0) {
                         _this.getCardData();
@@ -900,7 +901,7 @@ export default class cardLibraryGroupComponent extends React.Component {
                 },
                 (e) => {
                     setTimeout(() => {
-                        _this.flag.modDeck = true;
+                        _this.flag.mod = true;
                     }, 500);
                     _this.setState({
                         permission: true,
@@ -923,9 +924,9 @@ export default class cardLibraryGroupComponent extends React.Component {
     delDeck() {
         const _this = this,
             {history} = _this.props;
-    
-        if (!_this.flag.modDeck) return;
-        _this.flag.modDeck = false;
+        
+        if (!_this.flag.del) return;
+        _this.flag.del = false;
         
         GaeaAjax.encryptAjax(
             domain + interfaceRoute.delDeck,
@@ -933,6 +934,9 @@ export default class cardLibraryGroupComponent extends React.Component {
                 deck_id: _this.state.id
             },
             (result) => {
+                setTimeout(() => {
+                    _this.flag.del = true;
+                }, 500);
                 history.push(route.decks.path);
             }
         );

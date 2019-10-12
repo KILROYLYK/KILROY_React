@@ -15,7 +15,7 @@ export const href = {
     news: '/news',
     guide: '/guide',
     exchange: '/activity/exchange',
-    cardLibrary: '/decks',
+    cardLibrary: '/decks/',
     forum: 'http://forums.playgwent.cn',
     download: 'https://webdl.playgwent.cn/index.php?utm_source=gaea&utm_medium=website',
     qr_wechat: 'https://image.gaeamobile.net/image/20190603/111432/gwent_wechat.jpg',
