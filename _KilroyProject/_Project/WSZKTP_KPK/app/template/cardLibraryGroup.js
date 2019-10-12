@@ -50,7 +50,7 @@ export default class cardLibraryGroupComponent extends React.Component {
             platform: pageState.platform,
             permission: false,
             edit: false,
-            autoEdit: Base.url.getParam('state') === 'edit',
+            autoEdit: Base.url.getParam('state') === 'edit' ? true : false,
             id: history.location.hash.replace('#', ''),
             camp: '',
             like: 0,
@@ -145,7 +145,7 @@ export default class cardLibraryGroupComponent extends React.Component {
         });
         
         _this.getCardData();
-        _this.child.popup.scriptPopupDeleteCardGroup(_this.clickBtnDelete);
+        _this.child.popup.scriptPopupDeleteCardGroup(_this.clickBtnDelete.bind(_this));
     }
     
     /**
@@ -713,11 +713,11 @@ export default class cardLibraryGroupComponent extends React.Component {
             return;
         }
         
-        _this.updateContent();
-        
         _this.setState({
             edit: false
         });
+        
+        _this.updateDeck();
     }
     
     /**
@@ -725,18 +725,20 @@ export default class cardLibraryGroupComponent extends React.Component {
      * @return {void}
      */
     clickBtnDelete() {
-        const _this = this,
-            {history} = _this.props;
+        const _this = this;
+    
+        if (!isLogin()) {
+            _this.noLogin();
+            return;
+        }
+    
+        _this.setState({
+            edit: false,
+            permission: false,
+            info_introduction: '<p>删除中...</p>'
+        });
         
-        GaeaAjax.encryptAjax(
-            domain + interfaceRoute.delDeck,
-            {
-                deck_id: _this.state.id
-            },
-            (result) => {
-                history.push(route.decks.path);
-            }
-        );
+        _this.delDeck();
     }
     
     /******数据事件******/
@@ -781,8 +783,7 @@ export default class cardLibraryGroupComponent extends React.Component {
                         }, () => {
                             if (result.data.self && _this.state.autoEdit) {
                                 _this.setState({
-                                    edit: true,
-                                    autoEdit: true
+                                    edit: true
                                 });
                             }
                         });
@@ -849,12 +850,12 @@ export default class cardLibraryGroupComponent extends React.Component {
      * 更新牌组内容
      * @return {void}
      */
-    updateContent() {
+    updateDeck() {
         const _this = this;
-    
-        if (!_this.flag.modDeck) return;
+        
+        if (!_this.flag.del) return;
         _this.flag.modDeck = false;
-    
+        
         if (_this.child.editor) {
             const content = _this.child.editor.getContent();
             
@@ -863,7 +864,8 @@ export default class cardLibraryGroupComponent extends React.Component {
                 info_introduction: '<p>保存中...</p>'
             });
             
-            GaeaAjax.encryptAjax(
+            GaeaAjax.crossAjax(
+                'post',
                 domain + interfaceRoute.modDeck,
                 {
                     deck_id: _this.state.id,
@@ -896,7 +898,7 @@ export default class cardLibraryGroupComponent extends React.Component {
                         }
                     }
                 },
-                (result) => {
+                (e) => {
                     setTimeout(() => {
                         _this.flag.modDeck = true;
                     }, 500);
@@ -912,6 +914,28 @@ export default class cardLibraryGroupComponent extends React.Component {
                 }
             );
         }
+    }
+    
+    /**
+     * 删除牌组内容
+     * @return {void}
+     */
+    delDeck() {
+        const _this = this,
+            {history} = _this.props;
+    
+        if (!_this.flag.modDeck) return;
+        _this.flag.modDeck = false;
+        
+        GaeaAjax.encryptAjax(
+            domain + interfaceRoute.delDeck,
+            {
+                deck_id: _this.state.id
+            },
+            (result) => {
+                history.push(route.decks.path);
+            }
+        );
     }
     
     /******其他事件******/
