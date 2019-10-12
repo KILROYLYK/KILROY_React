@@ -62,7 +62,7 @@ export default class indexComponent extends React.Component {
                             state: ''
                         }}
                               className='btn_go_deck'
-                        >卡牌库</Link>
+                        >前往 卡牌库</Link>
                     </div>
                 </div>
                 <Footer store={store} />
