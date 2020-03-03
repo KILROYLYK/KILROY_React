@@ -1,7 +1,7 @@
 /**
  * Public
  */
-import { Base, GaeaAjax } from '../../../_Base/js/window';
+import { Base, GaeaAjax } from '../../../_Base/javascript/window';
 import { scrollTop, isPC, isMobile, getImage } from '../controller/window';
 import { route } from '../controller/route';
 import { domain, interfaceRoute } from '../constant/interface';

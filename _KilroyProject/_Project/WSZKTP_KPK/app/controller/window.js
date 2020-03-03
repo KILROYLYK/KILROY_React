@@ -1,7 +1,7 @@
 /**
  * Public
  */
-import { W, $, GaeaAjax, Base } from '../../../_Base/js/window';
+import { W, $, GaeaAjax, Base } from '../../../_Base/javascript/window';
 import { domain, interfaceRoute } from '../constant/interface';
 import { userCookie } from '../constant/cookie';
 import { userInitialState } from '../state/user';

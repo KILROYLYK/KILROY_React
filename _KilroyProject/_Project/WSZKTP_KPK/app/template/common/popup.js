@@ -1,7 +1,7 @@
 /**
  * Public
  */
-import { Popup } from '../../../../_Base/js/window';
+import { Popup } from '../../../../_Base/javascript/window';
 
 /**
  * Style
