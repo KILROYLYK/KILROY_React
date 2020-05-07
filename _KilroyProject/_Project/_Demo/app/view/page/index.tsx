@@ -1,6 +1,6 @@
 import '../../../src/css/index.less';
 
-import { Base } from '../../../../_Base/javascript/window';
+import { Base } from '../../../../_Base/javascript/window.ts';
 
 import React from 'react';
 import { Provider } from 'react-redux';
@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 /**
  * 首页
  */
-export default class cardLibraryComponent extends React.Component {
+export default class IndexComponent extends React.Component<any, any> {
     /**
      * 构造函数
      * @param {object} props 参数对象
