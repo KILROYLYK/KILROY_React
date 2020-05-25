@@ -28,3 +28,6 @@ $dist/
 # Media
 *.mp3
 *.mp4
+
+# Pack
+*.zip
