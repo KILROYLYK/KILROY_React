@@ -1,6 +1,6 @@
 import '../../../src/css/index.less';
 
-import Global from '../../constant/global';
+import Global from '../constant/global';
 
 import React from 'react';
 import { Provider } from 'react-redux';
