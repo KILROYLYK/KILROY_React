@@ -23,5 +23,5 @@ export default class Global {
     readonly static Function: object = Function; // 函数
     readonly static Router: object = Router; // 路由
     
-    public static Instance: any = {}; // 实例
+    public static Main: any = null; // React主对象
 }
