@@ -1,7 +1,7 @@
 import '../../../_Base/css/common.less';
 import '../../../_Base/css/public.less';
 
-import { W, D, Base } from '../../../_Base/javascript/window.ts';
+import { W, D, Base } from '../../../_Base/typescript/window';
 
 import Config from './config'; // 配置
 import Function from './function'; // 函数
