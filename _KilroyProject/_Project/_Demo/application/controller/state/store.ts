@@ -29,10 +29,5 @@ export const initialStore = createStore(
  * 历史
  */
 export const initialHistory = createHashHistory({
-    basename: '/',
-    forceRefresh: false,
-    keyLength: 6,
-    getUserConfirmation: (message, callback) => {
-        Global.Window.confirm(message);
-    }
+    window: Global.Window
 });

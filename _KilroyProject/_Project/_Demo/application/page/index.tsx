@@ -1,4 +1,4 @@
-import '../../static/css/index.less';
+import '../../resource/css/index.less';
 
 import Global from '../constant/global';
 
