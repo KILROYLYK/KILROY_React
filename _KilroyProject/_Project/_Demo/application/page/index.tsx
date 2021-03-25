@@ -2,7 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import Global from '../constant/global';
+import Global from '../constant/_global';
 
 import '../../resource/css/index.less';
 
@@ -32,7 +32,9 @@ export default class IndexComponent extends React.Component<any, any> {
         
         return (
             <Provider store={ store }>
-                KILROY
+                <div id={ 'index' } className={ 'index' }>
+                    KILROY
+                </div>
             </Provider>
         );
     }

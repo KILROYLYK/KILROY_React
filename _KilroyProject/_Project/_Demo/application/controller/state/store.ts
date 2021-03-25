@@ -2,7 +2,7 @@ import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import { createBrowserHistory, createHashHistory } from 'history';
 
-import Global from '../../constant/global';
+import Global from '../../constant/_global';
 import { changUserState, userInitialState } from './user.ts';
 import { changPageState, pageInitialState } from './page.ts';
 

@@ -1,30 +1,26 @@
-import { $, $W, $B, FN } from '../../../_Base/Asset/_Global/_global';
-import Global from './global';
+import { $, $W, $B } from '../../../_Base/Asset/_Global/_global';
+import Global, { Vector } from './_global';
 
 /**
  * 函数
  */
 export default class GlobalFunction {
     /**
-     * 获取节点
-     * @overview 获取节点，不存在则创建
-     * @param {string} id 节点ID
+     * 获取Application节点
      * @return {$} 节点
      */
-    public static getDom(id: string = 'app'): typeof $ {
-        const _this = this;
+    public static getApplication(): typeof $ {
+        const _this = this,
+            name = 'application';
         
-        let $dom = $('#' + id);
+        let $application = $('#' + name);
         
-        if ($dom.length === 0) { // 不存在则创建
-            $dom = $(`<div id="${ id }"></div>`);
-            $B.append($dom);
-        }
+        ($application.length > 0) && $B.removeChild($application);
+        $application = $(`<div id="${ name }" class="${ name }" data-name="${ name }"></div>`);
+        $application.append($(`<div class="container"></div>`));
+        $B.prepend($application);
         
-        $dom.addClass(id);
-        $dom.attr('data-name', 'App');
-        
-        return $dom
+        return $application
     }
     
     /**
@@ -37,7 +33,7 @@ export default class GlobalFunction {
         
         return $dom
             ? $dom.width() / $dom.height()
-            : Global.DomWidth / Global.DomHeight;
+            : Global.$Root.width() / Global.$Root.height();
     }
     
     /**
@@ -45,7 +41,7 @@ export default class GlobalFunction {
      * @param {$} $dom 节点
      * @return {*} 中心位置
      */
-    public static getDomCenter($dom?: typeof $): any {
+    public static getDomCenter($dom?: typeof $): Vector {
         const _this = this;
         
         return $dom
@@ -54,22 +50,25 @@ export default class GlobalFunction {
                 y: $dom.height() / 2
             }
             : {
-                x: Global.DomWidth / 2,
-                y: Global.DomHeight / 2
+                x: Global.$Root.width() / 2,
+                y: Global.$Root.height() / 2
             };
     }
     
     /**
-     * 调整宽高
+     * 更新宽高
      * @return {void}
      */
-    public static resizeDom(): void {
+    public static updateSize(): void {
         const _this = this;
         
         Global.Width = Global.$W.width();
         Global.Height = Global.$W.height();
-        Global.DomWidth = Global.$Dom.width();
-        Global.DomHeight = Global.$Dom.height();
+        Global.Aspect = Global.Width / Global.Height;
+        Global.Center = {
+            x: Global.$Root.width() / 2,
+            y: Global.$Root.height() / 2
+        };
     }
     
     /**
@@ -98,31 +97,15 @@ export default class GlobalFunction {
         
         if (isReset) {
             $W.bind('mouseout', (e: MouseEvent) => {
-                const centerP = _this.getDomCenter();
-                Global.Focus.x = centerP.x;
-                Global.Focus.y = centerP.y;
+                const center = _this.getDomCenter();
+                Global.Focus.x = center.x;
+                Global.Focus.y = center.y;
             });
             $W.bind('touchend', (e: TouchEvent) => {
-                const centerP = _this.getDomCenter();
-                Global.Focus.x = centerP.x;
-                Global.Focus.y = centerP.y;
+                const center = _this.getDomCenter();
+                Global.Focus.x = center.x;
+                Global.Focus.y = center.y;
             });
         }
-    }
-    
-    /**
-     * 屏幕调整时更新
-     * @param {function} callback 回调
-     * @param {number} time 间隔时间
-     * @return {void}
-     */
-    public static updateResize(callback: Function, time: number = 150): void {
-        const _this = this;
-        
-        if (!callback) return;
-        
-        FN.resize(() => {
-            callback && callback();
-        }, time);
     }
 }
