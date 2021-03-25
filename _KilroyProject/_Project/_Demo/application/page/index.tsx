@@ -1,10 +1,10 @@
-import '../../resource/css/index.less';
-
-import Global from '../constant/global';
-
 import React from 'react';
 import { Provider } from 'react-redux';
 import { Link } from 'react-router-dom';
+
+import Global from '../constant/global';
+
+import '../../resource/css/index.less';
 
 /**
  * 首页
