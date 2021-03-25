@@ -25,10 +25,16 @@ export default class Global {
     public static readonly $B: typeof Global.$ = _Global.$B;
     
     public static readonly FN: typeof _Global.FN = _Global.FN;
+    public static readonly Algorithm: typeof _Global.Algorithm = _Global.Algorithm;
     public static readonly Adaptation: typeof _Global.Adaptation = _Global.Adaptation;
     public static readonly Crypto: typeof _Global.Crypto = _Global.Crypto;
     public static readonly Ajax: typeof _Global.Ajax = _Global.Ajax;
+    
+    public static readonly Preload: typeof _Global.Preload = _Global.Preload;
     public static readonly Popup: typeof _Global.Popup = _Global.Popup;
+    public static readonly Flip: typeof _Global.Flip = _Global.Flip;
+    public static readonly Share: typeof _Global.Share = _Global.Share;
+    public static readonly Authorize: typeof _Global.Authorize = _Global.Authorize;
     
     public static Width: number = Global.$W.width();
     public static Height: number = Global.$W.height();
