@@ -11,13 +11,13 @@
 /.idea
 /node_modules
 
-# Files
+# File
 main.js
 main.jsx
 main.ts
 main.tsx
 
-# Folders
+# Folder
 /_KilroyLYK
 /_KilroyProject/_Build
 /_KilroyProject/_Project/$Cache
