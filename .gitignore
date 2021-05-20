@@ -19,14 +19,11 @@ main.tsx
 
 # Folders
 /_KilroyLYK
-/_KilroyProject/_Index
+/_KilroyProject/_Build
 /_KilroyProject/_Project/$Cache
 /_KilroyProject/_Project/_Base
-*/$dist/
 
-# Media
+# Other
 *.mp3
 *.mp4
-
-# Pack
 *.zip
