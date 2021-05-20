@@ -1,23 +1,21 @@
-*.js linguist-language=js
-*.jsx linguist-language=js
-*.ts linguist-language=js
-*.tsx linguist-language=js
+*.js linguist-language=ts
+*.jsx linguist-language=ts
+*.ts linguist-language=ts
+*.tsx linguist-language=ts
 
-*.json linguist-language=js
+*.json linguist-language=ts
 
-*.css linguist-language=js
-*.less linguist-language=js
-*.sass linguist-language=js
-*.scss linguist-language=js
+*.css linguist-language=ts
+*.less linguist-language=ts
 
-*.html linguist-language=js
+*.html linguist-language=ts
 
-*.md linguist-language=js
+*.md linguist-language=ts
 
-*.jpg linguist-language=js
-*.jpeg linguist-language=js
-*.png linguist-language=js
-*.svg linguist-language=js
+*.jpg linguist-language=ts
+*.jpeg linguist-language=ts
+*.png linguist-language=ts
+*.svg linguist-language=ts
 
-*.mp3 linguist-language=js
-*.mp4 linguist-language=js
+*.mp3 linguist-language=ts
+*.mp4 linguist-language=ts
